@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:41:30 by dabeloos          #+#    #+#             */
-/*   Updated: 2018/12/21 16:45:07 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/07 15:12:03 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,18 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef char			*(*operation)(char *, int, ...);
+//typedef char			*(*operation)(char *, int, ...);
 
-typedef struct			s_op
+typedef struct			s_str
 {
-	char				*text;
-	operation			op;
-	struct s_op			*next;
-}						t_op;
-
-char					*execute_op(va_list ap, const char *format);
-
-int						ft_strlen(char *str);
+	char				*txt;
+	size_t				len;
+	struct s_str		*next;
+	unsigned char		is_raw;
+	char				*flags;
+	int					mfw;
+	unsigned char		period;
+	char				type;
+}						t_str;
 
 #endif
