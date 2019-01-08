@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:56:39 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/08 13:43:33 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/08 15:14:24 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,30 @@ void			init_mrk(t_mrk *m)
 {
 	m->flags = NULL;
 	m->len_flags = 0;
+	m->arg_mfw = 0;
 	m->mfw = 0;
-	m->period = 0;
+	m->arg_precision = 0;
 	m->precision = 0;
+	m->len_modif = NULL;
+	m->len_len_modif = 0;
 	m->type = 0;
 }
 
+size_t			size_length_modifier(char *in)
+{
+	size_t		pos;
+	char		m;
 
+	pos = -1;
+	m = in[++pos];
+	if (m == 'l' || m == 'h' || m == 'L')
+	{
+		m = in[++pos];
+		if (m == in[pos - 1] && (m == 'h' || m == 'l'))
+			++pos;
+	}
+	return (pos);
+}
 
 unsigned char	is_flag(char in)
 {
@@ -108,11 +125,70 @@ char			*inspect_mfw(char *cur, t_mrk *mrk)
 	size_t		pos;
 
 	pos = -1;
+	if (*cur == '*')
+	{
+		mrk->arg_mfw = 1;
+		return (cur + 1);
+	}
 	while (is_number(cur[++pos]))
 		;
 	if (pos > 0)
 		mrk->mfw = ft_atoui_limited(cur);
 	return (cur + pos);
+}
+
+char			*inspect_precision(char *cur, t_mrk *mrk)
+{
+	size_t		pos;
+
+	if (*cur == '.')
+	{
+		++cur;
+		pos = -1;
+		if (*cur == '*')
+		{
+			mrk->arg_precision = 1;
+			return (cur + 1);
+		}
+		while (is_number(cur[++pos]))
+			;
+		if (pos > 0)
+			mrk->precision = ft_atoui_limited(cur);
+		return (cur + pos);
+	}
+	return (cur);
+}
+
+char			*inspect_length_modifier(char *cur, t_mrk *mrk)
+{
+	size_t		pos;
+
+	pos = size_length_modifier(cur);
+	if (pos > 0)
+	{
+		mrk->len_len_modif = pos;
+		mrk->len_modif = cur;
+	}
+	return (cur + pos);
+}
+
+char			*inspect_arg_type(char *cur, t_mrk *mrk)
+{
+	if (*cur == '%')
+	{
+		if (mrk->len_flags == 0 && mrk->mfw == 0 && mrk->precision == 0 &&
+				mrk->len_len_modif == 0 && mrk->arg_precision == 0)
+			mrk->type = *cur;
+		else
+			return (NULL);
+	}
+	else if (*cur == )
+	{
+
+	}
+	else
+		return (NULL);
+	return (cur + 1);
 }
 
 char			*decode_identifier(va_list ap, char *cur, t_str *head)
@@ -124,12 +200,9 @@ char			*decode_identifier(va_list ap, char *cur, t_str *head)
 	init_mrk(&mrk);
 	cur = inspect_flags(cur + 1, &mrk);
 	cur = inspect_mfw(cur, &mrk);
-	if (*cur == '.')
-	{
-		++cur;
-		mrk.period = 1;
-		mrk.precision = ft_atoi(cur);
-	}
+	cur = inspect_precision(cur, &mrk);
+	cur = inspect_length_modifier(cur, &mrk);
+	cur = inspect_arg_type(cur, &mrk);
 	return (cur + pos);
 }
 

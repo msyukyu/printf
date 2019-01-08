@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:41:30 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/08 13:39:56 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/08 15:13:21 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ typedef struct			s_str
 typedef struct			s_mrk
 {
 	char				*flags;
-	size_t				len_flags;;
+	size_t				len_flags;
+	unsigned char		arg_mfw;
 	unsigned int		mfw;
-	unsigned char		period;
+	unsigned char		arg_precision;
 	unsigned int		precision;
+	char				*len_modif;
+	size_t				len_len_modif;
 	char				type;
 }						t_mrk;
 
