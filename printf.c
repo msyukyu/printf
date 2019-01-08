@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:56:39 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/07 17:04:17 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/08 13:19:59 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,54 @@ void			init_mrk(t_mrk *m)
 	m->type = 0;
 }
 
+
+
 unsigned char	is_flag(char in)
 {
 	return (in == '-' || in == '0' || in == '+' || in == ' ' || in == '#');
 }
 
-char			*format_arg(va_list ap, char *cur, t_str *head)
+unsigned char	is_number(char in)
+{
+	return (in >= '0' && in <= '9');
+}
+
+char			*inspect_flags(char *cur, t_mrk *mrk)
 {
 	size_t		pos;
-	t_mrk		mrk;
 
-	++cur;
 	pos = -1;
-	init_mrk(&mrk);
 	while (is_flag(cur[++pos]))
 		;
-	mrk.flags = cur;
-	mrk.len_flags = pos;
-	cur = cur + pos;
+	if (pos > 0)
+	{
+		mrk->flags = cur;
+		mrk->len_flags = pos;
+	}
+	return (cur + pos);
+}
+
+char			*inspect_mfw(char *cur, t_mrk *mrk)
+{
+	size_t		pos;
+
+	pos = -1;
+	while (is_number(cur[++pos]))
+		;
+	if (pos > 0)
+		mrk->mfw = ft_atoi(cur);
+	return (cur + pos);
+}
+
+char			*decode_identifier(va_list ap, char *cur, t_str *head)
+{
+	t_mrk		mrk;
+	char		*base_cur;
+
+	base_cur = cur;
+	init_mrk(&mrk);
+	cur = inspect_flags(cur + 1, &mrk);
+	cur = inspect_mfw(cur, &mrk);
 	mrk.mfw = ft_atoi(cur);
 	while (is_number(*cur))
 		++cur;
@@ -76,7 +106,7 @@ char			*format_arg(va_list ap, char *cur, t_str *head)
 	return (cur + pos);
 }
 
-char			*copy_arg(char *cur, t_str *head)
+char			*copy_raw(char *cur, t_str *head)
 {
 	size_t		pos;
 
@@ -103,9 +133,9 @@ t_str			*decode_format(va_list ap, const char *format)
 	while (1)
 	{
 		if (*cur == '%')
-			cur = format_arg(ap, cur, head);
+			cur = decode_identifier(ap, cur, head);
 		else
-			cur = copy_arg(cur, head);
+			cur = copy_raw(cur, head);
 		if (!(*cur))
 			return (root);
 		prev = head;
