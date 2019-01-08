@@ -6,11 +6,41 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:56:39 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/08 13:19:59 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/08 13:43:33 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+
+char			*ft_strncpy(char *dst, const char *src, size_t len)
+{
+	size_t		i;
+
+	i = -1;
+	while (src[++i] && i < len)
+		dst[i] = src[i];
+	while (i < len)
+		dst[i++] = '\0';
+	return (dst);
+}
+
+unsigned int	ft_atoui_limited(const char *str)
+{
+	unsigned int		result;
+	size_t		i;
+	unsigned int		tmp;
+
+	result = 0;
+	i = 0;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		tmp = result;
+		result = result * 10 + str[i++] - '0';
+		if (result < tmp)
+			return (~((unsigned int)0));
+	}
+	return (result);
+}
 
 t_str			*init_str(t_str *s)
 {
@@ -81,7 +111,7 @@ char			*inspect_mfw(char *cur, t_mrk *mrk)
 	while (is_number(cur[++pos]))
 		;
 	if (pos > 0)
-		mrk->mfw = ft_atoi(cur);
+		mrk->mfw = ft_atoui_limited(cur);
 	return (cur + pos);
 }
 
@@ -94,9 +124,6 @@ char			*decode_identifier(va_list ap, char *cur, t_str *head)
 	init_mrk(&mrk);
 	cur = inspect_flags(cur + 1, &mrk);
 	cur = inspect_mfw(cur, &mrk);
-	mrk.mfw = ft_atoi(cur);
-	while (is_number(*cur))
-		++cur;
 	if (*cur == '.')
 	{
 		++cur;
@@ -143,18 +170,6 @@ t_str			*decode_format(va_list ap, const char *format)
 			return (clean_str(root));
 		prev->next = head;
 	}
-}
-
-char			*ft_strncpy(char *dst, const char *src, size_t len)
-{
-	size_t		i;
-
-	i = -1;
-	while (src[++i] && i < len)
-		dst[i] = src[i];
-	while (i < len)
-		dst[i++] = '\0';
-	return (dst);
 }
 
 char			*str_lst_join(t_str *slst, size_t *len)
