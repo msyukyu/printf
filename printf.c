@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:56:39 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/08 15:14:24 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/08 16:10:19 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,23 +172,43 @@ char			*inspect_length_modifier(char *cur, t_mrk *mrk)
 	return (cur + pos);
 }
 
+unsigned char	check_type_c(t_mrk *mrk)
+{
+	return (0);
+}
+
+char			*at_dispatch(char *cur, t_mrk *mrk,
+		unsigned char (*f)(t_mrk*))
+{
+	mrk->type = *cur;
+	return ((f(mrk)) ? cur + 1 : NULL);
+}
+
 char			*inspect_arg_type(char *cur, t_mrk *mrk)
 {
+	if (*cur == 'c')
+		return (at_dispatch(cur, mrk, check_type_c));
+	if (*cur == 's')
+		return (at_dispatch(cur, mrk, check_type_s));
+	if (*cur == 'p')
+		return (at_dispatch(cur, mrk, check_type_p));
+	if (*cur == 'd')
+		return (at_dispatch(cur, mrk, check_type_d));
+	if (*cur == 'i')
+		return (at_dispatch(cur, mrk, check_type_i));
+	if (*cur == 'o')
+		return (at_dispatch(cur, mrk, check_type_o));
+	if (*cur == 'u')
+		return (at_dispatch(cur, mrk, check_type_u));
+	if (*cur == 'x')
+		return (at_dispatch(cur, mrk, check_type_x));
+	if (*cur == 'X')
+		return (at_dispatch(cur, mrk, check_type_x_maj));
+	if (*cur == 'f')
+		return (at_dispatch(cur, mrk, check_type_f));
 	if (*cur == '%')
-	{
-		if (mrk->len_flags == 0 && mrk->mfw == 0 && mrk->precision == 0 &&
-				mrk->len_len_modif == 0 && mrk->arg_precision == 0)
-			mrk->type = *cur;
-		else
-			return (NULL);
-	}
-	else if (*cur == )
-	{
-
-	}
-	else
-		return (NULL);
-	return (cur + 1);
+		return (at_dispatch(cur, mrk, check_type_pctg));
+	return (NULL);
 }
 
 char			*decode_identifier(va_list ap, char *cur, t_str *head)
