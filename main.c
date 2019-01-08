@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:51:44 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/08 15:56:19 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/08 17:08:28 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 
 int		main(void)
 {
-	printf("%#oc", 3);
+	printf("%-%   "); //flags
+	printf("%0%   ");
+	printf("%+%   ");
+	printf("% %   ");
+	printf("%#%   ");
+	printf("%l%   "); //modifier
+	printf("%ll%   ");
+	printf("%L%   ");
+	printf("%hh%   ");
+	printf("%h%   ");
+	printf("%5%   "); //mfw
+	printf("%.2%   "); //precision
+
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:56:39 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/08 16:10:19 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/08 17:08:27 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,9 +172,52 @@ char			*inspect_length_modifier(char *cur, t_mrk *mrk)
 	return (cur + pos);
 }
 
-unsigned char	check_type_c(t_mrk *mrk)
+//sort flags, create search method
+unsigned char	check_type(t_mrk *mrk)
 {
-	return (0);
+	//type c
+	//invalid flags : 0+ #
+	//invalid precision
+	//invalid modifier : all
+	//
+	//type s
+	//invalids flags : 0+ #
+	//invalid modifier : all
+	//
+	//type p
+	//invalid flags : 0+ #
+	//invalid precision
+	//invalid modifier : all
+	//
+	//type d
+	//invalid flags : #
+	//invalid modifier : L
+	//
+	//type i
+	//invalid flags : #
+	//invalid modifier : L
+	//
+	//type o
+	//invalid flags : + 
+	//invalid modifier : L
+	//
+	//type u
+	//invalid flags : + #
+	//invalid modifier : L
+	//
+	//type x
+	//invalid flags : + 
+	//invalid modifier : L
+	//
+	//type X
+	//invalid flags : + 
+	//invalid modifier : L
+	//
+	//type f
+	//invalid modifier : ll h hh
+	//
+	//type %
+	//all valid
 }
 
 char			*at_dispatch(char *cur, t_mrk *mrk,
