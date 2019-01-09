@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:41:30 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/09 20:54:22 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/09 21:38:27 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,11 @@ char					*decode_identifier(va_list ap, char *cur, t_str *head,
 							size_t *len);
 t_str					*decode_format(va_list ap, const char *format,
 							size_t *len);
+
+void					left_justify(char filler, t_str *head, t_mrk *mrk);
+void					right_justify(char filler, t_str *head, t_mrk *mrk);
+
+char					*uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk);
 
 char					*str_lst_join(t_str *slst, size_t len);
 int						ft_printf(const char *format, ...);
