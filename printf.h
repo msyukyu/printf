@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:41:30 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/09 15:20:51 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/09 19:10:45 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdint.h>
 
 //typedef char			*(*operation)(char *, int, ...);
 
@@ -31,9 +32,9 @@ typedef struct			s_mrk
 	char				*flags;
 	size_t				len_flags;
 	unsigned char		arg_mfw;
-	unsigned int		mfw;
+	size_t				mfw;
 	unsigned char		arg_precision;
-	unsigned int		precision;
+	size_t				precision;
 	char				*len_modif;
 	size_t				len_len_modif;
 	char				type;

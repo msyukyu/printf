@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:56:39 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/09 17:11:48 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/09 19:46:46 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,71 +237,102 @@ char			*inspect_length_modifier(char *cur, t_mrk *mrk)
 	//invalid flags : 0+ #
 	//invalid precision
 	//invalid modifier : all
-unsigned char	handle_c(va_list ap, t_str *head, t_mrk *mrk)
+size_t	handle_c(va_list ap, t_str *head, t_mrk *mrk)
 {
-
+	//size_t
+	//min : mfw
+	//else : number size
+	//- : left justified
+	head->txt = uint_tostr(va_arg(ap, unsigned int), head, mrk);
+	if (!head->txt)
+		return (0);
+	head->is_raw = 0;
+	if (search_flag('-', mrk))
+		left_justify(' ', head, mrk);
+	else
+		right_justify(' ', head, mrk);
+	return ((head->txt) ? head->len : 0);
 }
 	//type s
 	//invalids flags : 0+ #
 	//invalid modifier : all
-unsigned char	handle_s(va_list ap, t_str *head, t_mrk *mrk)
+size_t			handle_s(va_list ap, t_str *head, t_mrk *mrk)
 {
+	//char *
+	//max : precision
+	//min : mfw
+	//else : string size
+	//- : left justified
+	return (0);
 }
 	//type p
 	//invalid flags : 0+ #
 	//invalid precision
 	//invalid modifier : all
-unsigned char	handle_p(va_list ap, t_str *head, t_mrk *mrk)
+size_t			handle_p(va_list ap, t_str *head, t_mrk *mrk)
 {
+	//uintmax_t
+	//min : mfw
+	//else : number size
+	//- : left justified
+	return (0);
 }
 	//type d
 	//invalid flags : #
 	//invalid modifier : L
-unsigned char	handle_d(va_list ap, t_str *head, t_mrk *mrk)
+size_t			handle_d(va_list ap, t_str *head, t_mrk *mrk)
 {
+	return (0);
 }
 	//type i
 	//invalid flags : #
 	//invalid modifier : L
-unsigned char	handle_i(va_list ap, t_str *head, t_mrk *mrk)
+size_t			handle_i(va_list ap, t_str *head, t_mrk *mrk)
 {
+	return (0);
 }
 	//type o
 	//invalid flags : + 
 	//invalid modifier : L
-unsigned char	handle_o(va_list ap, t_str *head, t_mrk *mrk)
+size_t			handle_o(va_list ap, t_str *head, t_mrk *mrk)
 {
+	return (0);
 }
 	//type u
 	//invalid flags : + #
 	//invalid modifier : L
-unsigned char	handle_u(va_list ap, t_str *head, t_mrk *mrk)
+size_t			handle_u(va_list ap, t_str *head, t_mrk *mrk)
 {
+	return (0);
 }
 	//type x
 	//invalid flags : + 
 	//invalid modifier : L
-unsigned char	handle_x(va_list ap, t_str *head, t_mrk *mrk)
+size_t			handle_x(va_list ap, t_str *head, t_mrk *mrk)
 {
+	return (0);
 }
 	//type X
 	//invalid flags : + 
 	//invalid modifier : L
-unsigned char	handle_x_maj(va_list ap, t_str *head, t_mrk *mrk)
+size_t			handle_x_maj(va_list ap, t_str *head, t_mrk *mrk)
 {
+	return (0);
 }
 	//type f
 	//invalid modifier : ll h hh
-unsigned char	handle_f(va_list ap, t_str *head, t_mrk *mrk)
+size_t			handle_f(va_list ap, t_str *head, t_mrk *mrk)
 {
+	return (0);
 }
 	//type %
 	//all valid
-unsigned char	handle_pctg(va_list ap, t_str *head, t_mrk *mrk)
+size_t			handle_pctg(va_list ap, t_str *head, t_mrk *mrk)
 {
+	return (0);
 }
 
-unsigned char	inspect_arg_type(va_list ap, char *cur, t_str *head,
+size_t			inspect_arg_type(va_list ap, char *cur, t_str *head,
 		t_mrk *mrk)
 {
 	mrk->type = *cur;
@@ -330,21 +361,24 @@ unsigned char	inspect_arg_type(va_list ap, char *cur, t_str *head,
 	return (0);
 }
 
-char			*copy_raw_ignore(char *cur, t_str *head, size_t start)
+char			*copy_raw_ignore(char *cur, t_str *head, size_t start,
+		size_t *len)
 {
 	while (cur[++start] && cur[start] != '%')
 		;
 	head->txt = cur;
 	head->len = start;
+	*len += start;
 	return (cur + start);
 }
 
-char			*copy_raw(char *cur, t_str *head)
+char			*copy_raw(char *cur, t_str *head, size_t *len)
 {
-	return (copy_raw_ignore(cur, head, -1));
+	return (copy_raw_ignore(cur, head, -1, len));
 }
 
-char			*decode_identifier(va_list ap, char *cur, t_str *head)
+char			*decode_identifier(va_list ap, char *cur, t_str *head,
+		size_t *len)
 {
 	t_mrk		mrk;
 	char		*base_cur;
@@ -355,14 +389,14 @@ char			*decode_identifier(va_list ap, char *cur, t_str *head)
 	cur = inspect_mfw(cur, &mrk);
 	cur = inspect_precision(cur, &mrk);
 	cur = inspect_length_modifier(cur, &mrk);
-	cur = (inspect_arg_type(ap, cur, head, &mrk)) ? cur + 1 : NULL;
+	cur = ((*len += inspect_arg_type(ap, cur, head, &mrk))) ? cur + 1 : NULL;
 	if (!cur)
-		return (copy_raw_ignore(base_cur, head, 0));
+		return (copy_raw_ignore(base_cur, head, 0, len));
 	else
 		return (cur);
 }
 
-t_str			*decode_format(va_list ap, const char *format)
+t_str			*decode_format(va_list ap, const char *format, size_t *len)
 {
 	char		*cur;
 	t_str		*root;
@@ -377,9 +411,9 @@ t_str			*decode_format(va_list ap, const char *format)
 	while (1)
 	{
 		if (*cur == '%')
-			cur = decode_identifier(ap, cur, head);
+			cur = decode_identifier(ap, cur, head, len);
 		else
-			cur = copy_raw(cur, head);
+			cur = copy_raw(cur, head, len);
 		if (!(*cur))
 			return (root);
 		prev = head;
@@ -389,13 +423,13 @@ t_str			*decode_format(va_list ap, const char *format)
 	}
 }
 
-char			*str_lst_join(t_str *slst, size_t *len)
+char			*str_lst_join(t_str *slst, size_t len)
 {
 	char		*out;
 	char		*cur;
 	t_str		*head;
 
-	if (!slst || !(out = (char*)malloc(sizeof(char) * *len)))
+	if (!slst || !(out = (char*)malloc(sizeof(char) * len)))
 		return (NULL);
 	cur = out;
 	head = slst;
@@ -417,8 +451,8 @@ int				ft_printf(const char *format, ...)
 
 	len = 0;
 	va_start(ap, format);
-	slst = decode_format(ap, format);
-	out = str_lst_join(slst, &len);
+	slst = decode_format(ap, format, &len);
+	out = str_lst_join(slst, len);
 	va_end(ap);
 	return (len);
 }
