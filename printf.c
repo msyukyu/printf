@@ -6,11 +6,71 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:56:39 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/08 17:08:27 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/09 17:11:48 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+
+void			ft_swap_char(char *a, char *b)
+{
+	char	tmp;
+
+	if (a == NULL || b == NULL)
+		return ;
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+void			ft_sort_char(char *tab, size_t s, size_t e)
+{
+	size_t		es;
+	size_t		ee;
+	size_t		sg;
+
+	if (tab == NULL)
+		return ;
+	es = s;
+	ee = s;
+	sg = e;
+	while (ee < sg)
+	{
+		if (tab[ee] < tab[es])
+			ft_swap_char(tab + ee++, tab + es++);
+		else if (tab[ee] == tab[es])
+			++ee;
+		else
+			ft_swap_char(tab + ee, tab + --sg);
+	}
+	if (s < es - 1)
+		ft_sort_char(tab, s, es);
+	if (sg < e - 1)
+		ft_sort_char(tab, sg, e);
+}
+
+unsigned char	search_char(char flag, char *tab, size_t s, size_t e)
+{
+	size_t		i;
+
+	if (s < e)
+	{
+		i = (e - s) / 2;
+		if (tab[i] == flag)
+			return (1);
+		else if (tab[i] < flag)
+			return (search_char(flag, tab, i + 1, e));
+		else
+			return (search_char(flag, tab, s, i));
+	}
+	else
+		return (0);
+}
+
+unsigned char	search_flag(char flag, t_mrk *mrk)
+{
+	return (search_char(flag, mrk->flags, 0, mrk->len_flags));
+}
 
 char			*ft_strncpy(char *dst, const char *src, size_t len)
 {
@@ -115,6 +175,7 @@ char			*inspect_flags(char *cur, t_mrk *mrk)
 	if (pos > 0)
 	{
 		mrk->flags = cur;
+		ft_sort_char(cur, 0, pos);
 		mrk->len_flags = pos;
 	}
 	return (cur + pos);
@@ -172,86 +233,115 @@ char			*inspect_length_modifier(char *cur, t_mrk *mrk)
 	return (cur + pos);
 }
 
-//sort flags, create search method
-unsigned char	check_type(t_mrk *mrk)
-{
 	//type c
 	//invalid flags : 0+ #
 	//invalid precision
 	//invalid modifier : all
-	//
+unsigned char	handle_c(va_list ap, t_str *head, t_mrk *mrk)
+{
+
+}
 	//type s
 	//invalids flags : 0+ #
 	//invalid modifier : all
-	//
+unsigned char	handle_s(va_list ap, t_str *head, t_mrk *mrk)
+{
+}
 	//type p
 	//invalid flags : 0+ #
 	//invalid precision
 	//invalid modifier : all
-	//
+unsigned char	handle_p(va_list ap, t_str *head, t_mrk *mrk)
+{
+}
 	//type d
 	//invalid flags : #
 	//invalid modifier : L
-	//
+unsigned char	handle_d(va_list ap, t_str *head, t_mrk *mrk)
+{
+}
 	//type i
 	//invalid flags : #
 	//invalid modifier : L
-	//
+unsigned char	handle_i(va_list ap, t_str *head, t_mrk *mrk)
+{
+}
 	//type o
 	//invalid flags : + 
 	//invalid modifier : L
-	//
+unsigned char	handle_o(va_list ap, t_str *head, t_mrk *mrk)
+{
+}
 	//type u
 	//invalid flags : + #
 	//invalid modifier : L
-	//
+unsigned char	handle_u(va_list ap, t_str *head, t_mrk *mrk)
+{
+}
 	//type x
 	//invalid flags : + 
 	//invalid modifier : L
-	//
+unsigned char	handle_x(va_list ap, t_str *head, t_mrk *mrk)
+{
+}
 	//type X
 	//invalid flags : + 
 	//invalid modifier : L
-	//
+unsigned char	handle_x_maj(va_list ap, t_str *head, t_mrk *mrk)
+{
+}
 	//type f
 	//invalid modifier : ll h hh
-	//
+unsigned char	handle_f(va_list ap, t_str *head, t_mrk *mrk)
+{
+}
 	//type %
 	//all valid
+unsigned char	handle_pctg(va_list ap, t_str *head, t_mrk *mrk)
+{
 }
 
-char			*at_dispatch(char *cur, t_mrk *mrk,
-		unsigned char (*f)(t_mrk*))
+unsigned char	inspect_arg_type(va_list ap, char *cur, t_str *head,
+		t_mrk *mrk)
 {
 	mrk->type = *cur;
-	return ((f(mrk)) ? cur + 1 : NULL);
+	if (*cur == 'c')
+		return (handle_c(ap, head, mrk));
+	if (*cur == 's')
+		return (handle_s(ap, head, mrk));
+	if (*cur == 'p')
+		return (handle_p(ap, head, mrk));
+	if (*cur == 'd')
+		return (handle_d(ap, head, mrk));
+	if (*cur == 'i')
+		return (handle_i(ap, head, mrk));
+	if (*cur == 'o')
+		return (handle_o(ap, head, mrk));
+	if (*cur == 'u')
+		return (handle_u(ap, head, mrk));
+	if (*cur == 'x')
+		return (handle_x(ap, head, mrk));
+	if (*cur == 'X')
+		return (handle_x_maj(ap, head, mrk));
+	if (*cur == 'f')
+		return (handle_f(ap, head, mrk));
+	if (*cur == '%')
+		return (handle_pctg(ap, head, mrk));
+	return (0);
 }
 
-char			*inspect_arg_type(char *cur, t_mrk *mrk)
+char			*copy_raw_ignore(char *cur, t_str *head, size_t start)
 {
-	if (*cur == 'c')
-		return (at_dispatch(cur, mrk, check_type_c));
-	if (*cur == 's')
-		return (at_dispatch(cur, mrk, check_type_s));
-	if (*cur == 'p')
-		return (at_dispatch(cur, mrk, check_type_p));
-	if (*cur == 'd')
-		return (at_dispatch(cur, mrk, check_type_d));
-	if (*cur == 'i')
-		return (at_dispatch(cur, mrk, check_type_i));
-	if (*cur == 'o')
-		return (at_dispatch(cur, mrk, check_type_o));
-	if (*cur == 'u')
-		return (at_dispatch(cur, mrk, check_type_u));
-	if (*cur == 'x')
-		return (at_dispatch(cur, mrk, check_type_x));
-	if (*cur == 'X')
-		return (at_dispatch(cur, mrk, check_type_x_maj));
-	if (*cur == 'f')
-		return (at_dispatch(cur, mrk, check_type_f));
-	if (*cur == '%')
-		return (at_dispatch(cur, mrk, check_type_pctg));
-	return (NULL);
+	while (cur[++start] && cur[start] != '%')
+		;
+	head->txt = cur;
+	head->len = start;
+	return (cur + start);
+}
+
+char			*copy_raw(char *cur, t_str *head)
+{
+	return (copy_raw_ignore(cur, head, -1));
 }
 
 char			*decode_identifier(va_list ap, char *cur, t_str *head)
@@ -265,20 +355,11 @@ char			*decode_identifier(va_list ap, char *cur, t_str *head)
 	cur = inspect_mfw(cur, &mrk);
 	cur = inspect_precision(cur, &mrk);
 	cur = inspect_length_modifier(cur, &mrk);
-	cur = inspect_arg_type(cur, &mrk);
-	return (cur + pos);
-}
-
-char			*copy_raw(char *cur, t_str *head)
-{
-	size_t		pos;
-
-	pos = -1;
-	while (cur[++pos] && cur[pos] != '%')
-		;
-	head->txt = cur;
-	head->len = pos;
-	return (cur + pos);
+	cur = (inspect_arg_type(ap, cur, head, &mrk)) ? cur + 1 : NULL;
+	if (!cur)
+		return (copy_raw_ignore(base_cur, head, 0));
+	else
+		return (cur);
 }
 
 t_str			*decode_format(va_list ap, const char *format)
@@ -340,4 +421,9 @@ int				ft_printf(const char *format, ...)
 	out = str_lst_join(slst, &len);
 	va_end(ap);
 	return (len);
+}
+
+int				main(void)
+{
+	return (0);
 }
