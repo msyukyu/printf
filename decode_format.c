@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 20:41:54 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/09 20:42:40 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/10 16:55:16 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_str			*decode_format(va_list ap, const char *format, size_t *len)
 	t_str		*head;
 	t_str		*prev;
 
-	if (!init_str(root))
+	if (!(root = init_str(root)))
 		return (NULL);
 	head = root;
 	prev = NULL;
@@ -68,7 +68,7 @@ t_str			*decode_format(va_list ap, const char *format, size_t *len)
 		if (!(*cur))
 			return (root);
 		prev = head;
-		if (!init_str(head))
+		if (!(head = init_str(head)))
 			return (clean_str(root));
 		prev->next = head;
 	}
