@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 19:58:25 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/09 20:00:50 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/10 15:45:04 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ void			init_mrk(t_mrk *m)
 	m->len_modif = NULL;
 	m->len_len_modif = 0;
 	m->type = 0;
+	m->base = 0;
 }

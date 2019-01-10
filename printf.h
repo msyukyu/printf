@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:41:30 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/09 21:38:27 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/10 15:58:30 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct			s_mrk
 	char				*len_modif;
 	size_t				len_len_modif;
 	char				type;
+	uintmax_t			base;
 }						t_mrk;
 
 void					sort_char(char *tab, size_t s, size_t e);
@@ -79,9 +80,12 @@ t_str					*decode_format(va_list ap, const char *format,
 							size_t *len);
 
 void					left_justify(char filler, t_str *head, t_mrk *mrk);
-void					right_justify(char filler, t_str *head, t_mrk *mrk);
 
-char					*uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk);
+void					uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk,
+							size_t index);
+
+char					symb_lc(size_t index);
+char					symb_uc(size_t index);
 
 char					*str_lst_join(t_str *slst, size_t len);
 int						ft_printf(const char *format, ...);

@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:56:39 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/09 20:49:15 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/10 16:12:54 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ int				ft_printf(const char *format, ...)
 	va_start(ap, format);
 	slst = decode_format(ap, format, &len);
 	out = str_lst_join(slst, len);
+	write(1, out, len);
 	va_end(ap);
 	return (len);
 }
 
 int				main(void)
 {
+	ft_printf("_%c_%-c_%10c_%-10c_", 1568, 68843, 48654, 46812);
 	return (0);
 }

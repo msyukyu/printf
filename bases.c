@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   bases.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/21 14:51:44 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/09 21:58:31 by dabeloos         ###   ########.fr       */
+/*   Created: 2019/01/10 15:22:29 by dabeloos          #+#    #+#             */
+/*   Updated: 2019/01/10 15:33:17 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-#include <stdio.h>
 
-int		main(void)
+char			symb_lc(size_t index)
 {
-	printf("%-%   %s", NULL); //flags
-	printf("%0%   ");
-	printf("%+%   ");
-	printf("% %   ");
-	printf("%#%   ");
-	printf("%l%   "); //modifier
-	printf("%ll%   ");
-	printf("%L%   ");
-	printf("%hh%   ");
-	printf("%h%   ");
-	printf("%5%   "); //mfw
-	printf("%.2%   "); //precision
+	static const char	base[] = "0123456789abcdef";
+	
+	if (index > 16)
+		return (0);
+	return (base[index]);
+}
 
-	return (0);
+char			symb_uc(size_t index)
+{
+	static const char	base[] = "0123456789ABCDEF";
+
+	if (index > 16)
+		return (0);
+	return (base[index]);
 }

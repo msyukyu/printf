@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 20:31:46 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/09 21:39:00 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/10 15:58:45 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,13 @@ size_t	handle_c(va_list ap, t_str *head, t_mrk *mrk)
 	//min : mfw
 	//else : number size
 	//- : left justified
-	head->txt = uint_tostr(va_arg(ap, unsigned int), head, mrk);
+	mrk->base = 10;
+	uint_tostr(va_arg(ap, unsigned int), head, mrk, 0);
 	if (!head->txt)
 		return (0);
 	head->is_raw = 0;
 	if (search_flag('-', mrk))
 		left_justify(' ', head, mrk);
-	else
-		right_justify(' ', head, mrk);
 	return ((head->txt) ? head->len : 0);
 }
 
