@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_s_pctg.c                                    :+:      :+:    :+:   */
+/*   handle_f.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/09 20:33:41 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/10 16:16:17 by dabeloos         ###   ########.fr       */
+/*   Created: 2019/01/10 16:16:27 by dabeloos          #+#    #+#             */
+/*   Updated: 2019/01/10 16:17:25 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-	//type s
-	//invalids flags : 0+ #
-	//invalid modifier : all
-size_t			handle_s(va_list ap, t_str *head, t_mrk *mrk)
-{
-	//char *
-	//max : precision
-	//min : mfw
-	//else : string size
-	//- : left justified
-	return (0);
-}
-
-	//type %
-	//all valid
-size_t			handle_pctg(va_list ap, t_str *head, t_mrk *mrk)
+	//type f
+	//invalid modifier : ll h hh
+size_t		handle_f(va_list ap, t_str *head, t_mrk *mrk)
 {
 	return (0);
 }
