@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 20:22:05 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/10 17:01:18 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/11 17:10:22 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,6 @@ size_t			inspect_arg_type(va_list ap, char *cur, t_str *head,
 	if (*cur == 'f')
 		return (handle_f(ap, head, mrk));
 	if (*cur == '%')
-		return (handle_pctg(ap, head, mrk));
+		return (handle_pctg(head, mrk));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 19:48:35 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/09 20:53:23 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/11 14:36:14 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void					sort_char(char *tab, size_t s, size_t e)
 		else
 			swap_char(tab + ee, tab + --sg);
 	}
-	if (s < es - 1)
+	if (s + 1 < es)
 		sort_char(tab, s, es);
-	if (sg < e - 1)
+	if (sg + 1 < e)
 		sort_char(tab, sg, e);
 }
 

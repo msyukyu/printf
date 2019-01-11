@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:41:30 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/10 15:58:30 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/11 17:10:06 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdint.h>
+
+#include <stdio.h>//a supprimer
 
 typedef struct			s_str
 {
@@ -69,7 +71,7 @@ size_t					handle_u(va_list ap, t_str *head, t_mrk *mrk);
 size_t					handle_x(va_list ap, t_str *head, t_mrk *mrk);
 size_t					handle_x_maj(va_list ap, t_str *head, t_mrk *mrk);
 size_t					handle_f(va_list ap, t_str *head, t_mrk *mrk);
-size_t					handle_pctg(va_list ap, t_str *head, t_mrk *mrk);
+size_t					handle_pctg(t_str *head, t_mrk *mrk);
 
 char					*copy_raw_ignore(char *cur, t_str *head, size_t start,
 							size_t *len);
@@ -80,9 +82,11 @@ t_str					*decode_format(va_list ap, const char *format,
 							size_t *len);
 
 void					left_justify(char filler, t_str *head, t_mrk *mrk);
+void					right_justify(char filler, t_str *head, t_mrk *mrk);
 
 void					uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk,
 							size_t index);
+void					uchar_tostr(unsigned char in, t_str *head, t_mrk *mrk);
 
 char					symb_lc(size_t index);
 char					symb_uc(size_t index);
