@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   integer_conversion.c                               :+:      :+:    :+:   */
+/*   conversions.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/09 21:02:45 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/11 20:36:02 by dabeloos         ###   ########.fr       */
+/*   Created: 2019/01/11 20:49:59 by dabeloos          #+#    #+#             */
+/*   Updated: 2019/01/11 21:24:05 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,27 @@ void			uchar_tostr(unsigned char in, t_str *head, t_mrk *mrk)
 	head->txt[head->len - 1] = (char)in;
 	i = -1;
 	while (++i < head->len - 1)
+		head->txt[i] = 0;
+}
+
+void			ustr_tostr(char *in, t_str *head, t_mrk *mrk)
+{
+	size_t		len;
+	size_t		i;
+
+	len = -1;
+	while (in[++len])
+		;
+	if (mrk->arg_precision)
+		len = (len < mrk->precision) ? len : mrk->precision;
+	head->len = (len > mrk->mfw) ? len : mrk->mfw;
+	head->txt = (char*)malloc(sizeof(char) * head->len);
+	if (!head->txt)
+		return ;
+	i = -1;
+	while (++i < len)
+		head->txt[head->len - len + i] = in[i];
+	i = -1;
+	while (++i < head->len - len)
 		head->txt[i] = 0;
 }

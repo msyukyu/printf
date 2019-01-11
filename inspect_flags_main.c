@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 20:22:05 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/11 17:40:29 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/11 21:01:55 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,7 @@ char			*inspect_precision(char *cur, t_mrk *mrk)
 	{
 		++cur;
 		pos = -1;
-		if (*cur == '*')
-		{
-			mrk->arg_precision = 1;
-			return (cur + 1);
-		}
+		mrk->arg_precision = 1;
 		while (is_number(cur[++pos]))
 			;
 		if (pos > 0)
