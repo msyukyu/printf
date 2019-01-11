@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 20:49:59 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/11 21:24:05 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/11 21:52:15 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,18 @@ void			uchar_tostr(unsigned char in, t_str *head, t_mrk *mrk)
 		head->txt[i] = 0;
 }
 
+void			print_null(t_str *head, t_mrk *mrk)
+{
+	ustr_tostr("(null)", head, mrk);
+}
+
 void			ustr_tostr(char *in, t_str *head, t_mrk *mrk)
 {
 	size_t		len;
 	size_t		i;
 
+	if (in == NULL)
+		return (print_null(head, mrk));
 	len = -1;
 	while (in[++len])
 		;
@@ -62,7 +69,7 @@ void			ustr_tostr(char *in, t_str *head, t_mrk *mrk)
 		len = (len < mrk->precision) ? len : mrk->precision;
 	head->len = (len > mrk->mfw) ? len : mrk->mfw;
 	head->txt = (char*)malloc(sizeof(char) * head->len);
-	if (!head->txt)
+	if (!head->txt && head->len != 0)
 		return ;
 	i = -1;
 	while (++i < len)
