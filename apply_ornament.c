@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 21:02:41 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/11 15:26:59 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/11 19:26:14 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,22 @@ void			left_justify(char filler, t_str *head, t_mrk *mrk)
 void			right_justify(char filler, t_str *head, t_mrk *mrk)
 {
 	size_t		offset;
-	size_t		pos;
 
 	offset = -1;
 	while (++offset < mrk->mfw && !head->txt[offset])
 		head->txt[offset] = filler;
+}
+
+void			add_prefix(char *prefix, t_str *head, t_mrk *mrk)
+{
+	size_t		offset;
+	size_t		pos;
+
+	offset = -1;
+	while (!head->txt[++offset])
+		;
+	pos = -1;
+	--offset;
+	while (prefix[++pos])
+		head->txt[offset - pos] = prefix[pos];
 }

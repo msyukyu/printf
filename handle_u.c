@@ -6,12 +6,11 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 17:01:34 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/11 17:45:46 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/11 18:11:39 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-
 
 void			handle_u_t(va_list ap, t_str *head, t_mrk *mrk)
 {

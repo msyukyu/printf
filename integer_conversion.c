@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 21:02:45 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/11 14:56:26 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/11 19:14:10 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void			uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk, size_t index)
 
 	if (in < mrk->base)
 	{
-		head->len = (mrk->mfw > index + 1) ? mrk->mfw : index + 1;
+		if (in == 0 && index == 0)
+			mrk->len_prefix = 0;
+		head->len = (mrk->mfw > index + 1 + mrk->len_prefix) ? mrk->mfw :
+			index + 1 + mrk->len_prefix;
 		head->txt = (char*)malloc(sizeof(char) * head->len);
 		if (!head->txt)
 			return ;

@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:41:30 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/11 17:40:37 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/11 19:23:47 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct			s_mrk
 	unsigned char		hashtag;
 	unsigned char		blank;
 	unsigned char		arg_mfw;
+	size_t				len_prefix;
 	size_t				mfw;
 	unsigned char		arg_precision;
 	size_t				precision;
@@ -68,6 +69,7 @@ size_t					handle_d(va_list ap, t_str *head, t_mrk *mrk);
 size_t					handle_i(va_list ap, t_str *head, t_mrk *mrk);
 size_t					handle_o(va_list ap, t_str *head, t_mrk *mrk);
 size_t					handle_u(va_list ap, t_str *head, t_mrk *mrk);
+void					handle_u_t(va_list ap, t_str *head, t_mrk *mrk);
 size_t					handle_x(va_list ap, t_str *head, t_mrk *mrk);
 size_t					handle_x_maj(va_list ap, t_str *head, t_mrk *mrk);
 size_t					handle_f(va_list ap, t_str *head, t_mrk *mrk);
@@ -83,6 +85,7 @@ t_str					*decode_format(va_list ap, const char *format,
 
 void					left_justify(char filler, t_str *head, t_mrk *mrk);
 void					right_justify(char filler, t_str *head, t_mrk *mrk);
+void					add_prefix(char *prefix, t_str *head, t_mrk *mrk);
 
 void					uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk,
 							size_t index);
