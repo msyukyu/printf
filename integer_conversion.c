@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 21:02:45 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/11 19:14:10 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/11 20:36:02 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void			uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk, size_t index)
 
 	if (in < mrk->base)
 	{
-		if (in == 0 && index == 0)
+		if (in == 0 && index == 0 && mrk->type != 'p')
 			mrk->len_prefix = 0;
 		head->len = (mrk->mfw > index + 1 + mrk->len_prefix) ? mrk->mfw :
 			index + 1 + mrk->len_prefix;
@@ -31,7 +31,8 @@ void			uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk, size_t index)
 	}
 	else
 		uint_tostr(in / mrk->base, head, mrk, index + 1);
-	head->txt[head->len - index - 1] = symb_lc(in % mrk->base);
+	head->txt[head->len - index - 1] = (mrk->type == 'X') ?
+		symb_uc(in % mrk->base) : symb_lc(in % mrk->base);
 	return ;
 }
 
