@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 17:01:34 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/11 17:01:37 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/11 17:45:46 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ size_t			handle_u(va_list ap, t_str *head, t_mrk *mrk)
 	if (!head->txt)
 		return (0);
 	head->is_raw = 0;
-	if (search_flag('-', mrk))
+	if (mrk->minus)
 		left_justify(' ', head, mrk);
 	else
 	{
-		if (search_flag('0', mrk))
+		if (mrk->zero)
 			right_justify('0', head, mrk);
 		else
 			right_justify(' ', head, mrk);

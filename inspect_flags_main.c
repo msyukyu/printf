@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 20:22:05 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/11 17:10:22 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/11 17:40:29 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,17 @@ char			*inspect_flags(char *cur, t_mrk *mrk)
 
 	pos = -1;
 	while (is_flag(cur[++pos]))
-		;
-	if (pos > 0)
 	{
-		mrk->flags = cur;
-		sort_char(cur, 0, pos);
-		mrk->len_flags = pos;
+		if (cur[pos] == '0')
+			mrk->zero = 1;
+		else if (cur[pos] == '-')
+			mrk->minus = 1;
+		else if (cur[pos] == '+')
+			mrk->plus = 1;
+		else if (cur[pos] == '#')
+			mrk->hashtag = 1;
+		else if (cur[pos] == ' ')
+			mrk->blank = 1;
 	}
 	return (cur + pos);
 }
