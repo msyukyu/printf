@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:41:30 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/12 14:10:11 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:52:13 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void					right_justify(char filler, t_str *head, t_mrk *mrk);
 void					add_prefix(char *prefix, t_str *head, t_mrk *mrk);
 
 void					uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk,
+							size_t index);
+void					int_tostr(intmax_t in, t_str *head, t_mrk *mrk,
 							size_t index);
 void					uchar_tostr(unsigned char in, t_str *head, t_mrk *mrk);
 void					ustr_tostr(char *in, t_str *head, t_mrk *mrk);
