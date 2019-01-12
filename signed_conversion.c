@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:52:22 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/12 16:22:56 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/12 16:29:37 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static void			ornate_signed(t_str *head, t_mrk *mrk, size_t i, char sign)
 {
-		while (++i < mrk->precision)
-			head->txt[head->len - 1 - i] = '0';
-		if (sign == -1)
-			head->txt[head->len - 1 - ++i] = '-';
-		else if (mrk->plus)
-			head->txt[head->len - 1 - ++i] = '+';
-		while (++i < head->len)
-			head->txt[head->len - 1 - i] = 0;
+	while (++i < mrk->precision)
+		head->txt[head->len - 1 - i] = '0';
+	if (sign == -1)
+		head->txt[head->len - 1 - ++i] = '-';
+	else if (mrk->plus)
+		head->txt[head->len - 1 - ++i] = '+';
+	while (++i < head->len)
+		head->txt[head->len - 1 - i] = 0;
 }
 
 void			int_tostr(intmax_t in, t_str *head, t_mrk *mrk, size_t index)
@@ -33,7 +33,7 @@ void			int_tostr(intmax_t in, t_str *head, t_mrk *mrk, size_t index)
 	sign = 1;
 	if (in < 0)
 		sign = -1;
-	if (in > -mrk->base && in < mrk->base)
+	if (in > -1 * (intmax_t)mrk->base && in < (intmax_t)mrk->base)
 	{
 		i = (mrk->mfw > mrk->precision) ? mrk->mfw : mrk->precision;
 		prefix = (sign == -1 || mrk->plus) ? 1 : 0;
