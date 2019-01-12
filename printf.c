@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:56:39 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/12 16:21:29 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/12 16:55:31 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int				main(void)
 	//ft_printf("%10p_%10p_%10p", NULL, "COUCOU", "COUCOU");
 	//printf("\n");
 	//printf("%10p_%10p_%10p", NULL, "COUCOU", "COUCOU");
-	ft_printf("_____%d", ft_printf("%d", 1));
+	ft_printf("%+d", 50);
 	printf("\n");
-	printf("_____%d", printf("%u", 1));
+	printf("_____%d", printf("%+d", 50));
 	return (0);
 }

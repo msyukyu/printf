@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:19:17 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/12 15:19:28 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/12 17:08:30 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void			uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk, size_t index)
 		i = index;
 		while (++i < mrk->precision)
 			head->txt[head->len - 1 - i] = '0';
-		while (++i < head->len)
+		while (i++ < head->len)
 			head->txt[head->len - 1 - i] = 0;
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:52:22 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/12 16:29:37 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/12 17:07:54 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static void			ornate_signed(t_str *head, t_mrk *mrk, size_t i, char sign)
 	while (++i < mrk->precision)
 		head->txt[head->len - 1 - i] = '0';
 	if (sign == -1)
-		head->txt[head->len - 1 - ++i] = '-';
+		head->txt[head->len - 1 - i++] = '-';
 	else if (mrk->plus)
-		head->txt[head->len - 1 - ++i] = '+';
-	while (++i < head->len)
+		head->txt[head->len - 1 - i++] = '+';
+	while (i++ < head->len)
 		head->txt[head->len - 1 - i] = 0;
 }
 
@@ -44,7 +44,8 @@ void			int_tostr(intmax_t in, t_str *head, t_mrk *mrk, size_t index)
 		ornate_signed(head, mrk, index, sign);
 	}
 	else
-		int_tostr(in / mrk->base, head, mrk, index + 1);
-	head->txt[head->len - index - 1] = symb_lc(sign * (in % mrk->base));
+		int_tostr(in / (intmax_t)mrk->base, head, mrk, index + 1);
+	head->txt[head->len - index - 1] = symb_lc(sign *
+			(in % (intmax_t)mrk->base));
 	return ;
 }
