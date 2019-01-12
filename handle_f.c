@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 16:16:27 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/10 16:17:25 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/12 17:37:57 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,12 @@
 	//invalid modifier : ll h hh
 size_t		handle_f(va_list ap, t_str *head, t_mrk *mrk)
 {
-	return (0);
+	if (mrk->len_modif && *(mrk->len_modif) == 'L')
+		float_tostr((long double)va_arg(ap, long double), head, mrk);
+	else
+		float_tostr((double)va_arg(ap, long double), head, mrk);
+	if (!head->txt)
+		return (0);
+	head->is_raw = 0;
+	return ((head->txt) ? head->len : 0);
 }
