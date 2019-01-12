@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:41:30 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/11 21:47:33 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/12 14:10:11 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct			s_mrk
 	unsigned char		plus;
 	unsigned char		hashtag;
 	unsigned char		blank;
-	unsigned char		arg_mfw;
 	size_t				len_prefix;
 	size_t				mfw;
 	unsigned char		arg_precision;

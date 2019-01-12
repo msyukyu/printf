@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 19:58:25 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/11 19:45:55 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/12 14:10:22 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void			init_mrk(t_mrk *m)
 	m->hashtag = 0;
 	m->blank = 0;
 	m->len_prefix = 0;
-	m->arg_mfw = 0;
 	m->mfw = 0;
 	m->arg_precision = 0;
 	m->precision = 0;

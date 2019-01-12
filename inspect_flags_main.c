@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 20:22:05 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/11 21:01:55 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/12 14:09:46 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,6 @@ char			*inspect_mfw(char *cur, t_mrk *mrk)
 	size_t		pos;
 
 	pos = -1;
-	if (*cur == '*')
-	{
-		mrk->arg_mfw = 1;
-		return (cur + 1);
-	}
 	while (is_number(cur[++pos]))
 		;
 	if (pos > 0)
