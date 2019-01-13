@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:41:30 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/13 14:56:02 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/13 20:44:04 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ typedef struct			s_mrk
 	char				type;
 	uintmax_t			base;
 }						t_mrk;
+
+typedef struct			s_dbl
+{
+	char				sign;
+	char				normalized;
+	int					exponent;
+	uintmax_t			fraction;
+}						t_dbl;
 
 t_str					*init_str(t_str *s);
 t_str					*clean_str(t_str *s);
@@ -97,9 +105,21 @@ void					ustr_tostr(char *in, t_str *head, t_mrk *mrk);
 //void					ldouble_tostr(long double in, t_str *head, t_mrk *mrk);
 //void					double_tostr(double in, t_str *head, t_mrk *mrk);
 
-void					double_bits_tostr(double in, t_str *head, t_mrk *mrk);
-void					ldouble_bits_tostr(long double in, t_str *head,
-							t_mrk *mrk);
+unsigned char			*store_ldouble_bits(long double in);
+unsigned char			*store_double_bits(double in);
+void					double_bits_tostr(double in, t_str *head);
+void					ldouble_bits_tostr(long double in, t_str *head);
+
+t_dbl					*extract_ldouble_infos(long double in);
+t_dbl					*extract_double_infos(double in);
+
+char					extract_float_sign(unsigned char *bits, size_t size);
+int						extract_float_exponent(size_t len, size_t offset,
+							unsigned char *bits, size_t size);
+char					extract_ldouble_normalized(size_t offset,
+							unsigned char *bits, size_t size);
+uintmax_t				extract_float_fraction(size_t len, size_t offset,
+							unsigned char *bits, size_t size);
 
 char					symb_lc(size_t index);
 char					symb_uc(size_t index);
