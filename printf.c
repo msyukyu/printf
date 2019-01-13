@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:56:39 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/13 14:54:48 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/13 16:00:57 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,12 @@ int				main(void)
 	//ft_printf("%10p_%10p_%10p", NULL, "COUCOU", "COUCOU");
 	//printf("\n");
 	//printf("%10p_%10p_%10p", NULL, "COUCOU", "COUCOU");
-	ft_printf("%f", 0);
+	long double d = 1;
+	long double e = 2.0;
+	long double f = -2.0;
+	long double g = 3.0;
+	ft_printf("%Lf\n%Lf\n%Lf\n%Lf\n", d, e, f, g);
+	ft_printf("%f\n%f\n%f\n%f\n", 1.0, 2.0, -2.0, 3.0);
 	//printf("\n");
 	//printf("_____%d", printf("%+7.5d", -50));
 	return (0);
