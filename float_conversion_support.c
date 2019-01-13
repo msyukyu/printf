@@ -1,27 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_f.c                                         :+:      :+:    :+:   */
+/*   float_conversion_support.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/10 16:16:27 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/13 14:55:27 by dabeloos         ###   ########.fr       */
+/*   Created: 2019/01/13 14:07:12 by dabeloos          #+#    #+#             */
+/*   Updated: 2019/01/13 14:55:09 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-	//type f
-	//invalid modifier : ll h hh
-size_t		handle_f(va_list ap, t_str *head, t_mrk *mrk)
+static unsigned char	*uc_memcpy(unsigned char *dst, const void *src,
+		size_t n)
 {
-	if (mrk->len_modif && *(mrk->len_modif) == 'L')
-		ldouble_bits_tostr(va_arg(ap, long double), head, mrk);
-	else
-		double_bits_tostr(va_arg(ap, double), head, mrk);
-	if (!head->txt)
-		return (0);
-	head->is_raw = 0;
-	return ((head->txt) ? head->len : 0);
+	size_t			i;
+
+	i = -1;
+	while (++i < n)
+		dst[i] = *((unsigned char*)src + i);
+	return (dst);
+}
+
+unsigned char			*uc_memmove(unsigned char *dst, const void *src,
+		size_t n)
+{
+	if ((void*)dst < src)
+		return (uc_memcpy(dst, src, n));
+	while (n > 0)
+	{
+		--n;
+		dst[n] = *((unsigned char *)src + n);
+	}
+	return (dst);
 }

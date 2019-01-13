@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:52:22 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/12 17:52:24 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/13 14:52:20 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,4 @@ void			int_tostr(intmax_t in, t_str *head, t_mrk *mrk, size_t index)
 		int_tostr(in / (intmax_t)mrk->base, head, mrk, index + 1);
 	head->txt[head->len - index - 1] = symb_lc(sign *
 			(in % (intmax_t)mrk->base));
-	return ;
 }

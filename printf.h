@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:41:30 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/12 15:52:13 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/13 14:56:02 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ unsigned char			is_flag(char in);
 unsigned char			is_number(char in);
 char					*ft_strncpy(char *dst, const char *src, size_t len);
 unsigned int			ft_atoui_limited(const char *str);
+unsigned char			*uc_memmove(unsigned char *dst, const void *src,
+							size_t n);
 
 char					*inspect_flags(char *cur, t_mrk *mrk);
 char					*inspect_mfw(char *cur, t_mrk *mrk);
@@ -92,6 +94,12 @@ void					int_tostr(intmax_t in, t_str *head, t_mrk *mrk,
 							size_t index);
 void					uchar_tostr(unsigned char in, t_str *head, t_mrk *mrk);
 void					ustr_tostr(char *in, t_str *head, t_mrk *mrk);
+//void					ldouble_tostr(long double in, t_str *head, t_mrk *mrk);
+//void					double_tostr(double in, t_str *head, t_mrk *mrk);
+
+void					double_bits_tostr(double in, t_str *head, t_mrk *mrk);
+void					ldouble_bits_tostr(long double in, t_str *head,
+							t_mrk *mrk);
 
 char					symb_lc(size_t index);
 char					symb_uc(size_t index);
