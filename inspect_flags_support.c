@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 20:21:48 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/09 20:48:57 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/14 16:57:23 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ char			*ft_strncpy(char *dst, const char *src, size_t len)
 	size_t		i;
 
 	i = -1;
-	while (src[++i] && i < len)
+	while (++i < len)
 		dst[i] = src[i];
-	while (i < len)
-		dst[i++] = '\0';
 	return (dst);
 }
 

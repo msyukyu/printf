@@ -67,7 +67,7 @@ int main(void)
 	printf ("loop %d\n", i2);
   time = clock();
   ft_printf("\n");
- // ft_printf("%%\n");
+  ft_printf("%%\n");
   ft_printf("%d\n", 42);
   ft_printf("%d%d\n", 42, 41);
   ft_printf("%d%d%d\n", 42, 43, 44);
