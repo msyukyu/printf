@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 17:53:15 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/13 21:02:23 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/14 13:45:51 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void					ldouble_bits_tostr(long double in, t_str *head)
 	free(bits);
 
 
-	t_dbl *dbl = extract_ldouble_infos(in);
+	//t_dbl *dbl = extract_ldouble_infos(in);
 	//printf("%d\n", dbl->exponent);
 	//printf("%d\n", dbl->sign);
 	//printf("%d\n", dbl->normalized);
@@ -93,7 +93,7 @@ void					double_bits_tostr(double in, t_str *head)
 	free(bits);
 
 
-	t_dbl *dbl = extract_double_infos(in);
+	//t_dbl *dbl = extract_double_infos(in);
 	//printf("%d\n", dbl->exponent);
 	//printf("%d\n", dbl->sign);
 	//printf("%d\n", dbl->normalized);

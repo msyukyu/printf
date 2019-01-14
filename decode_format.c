@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 20:41:54 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/11 21:51:33 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/14 13:45:21 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char			*decode_identifier(va_list ap, char *cur, t_str *head,
 	cur = inspect_precision(cur, &mrk);
 	cur = inspect_length_modifier(cur, &mrk);
 	cur = (inspect_arg_type(ap, cur, head, &mrk)) ? cur + 1 : NULL;
-	if (mrk.type == 's' && head->len == -1)
+	if (mrk.type == 's' && head->len == (size_t)-1)
 		head->len = 0;
 	*len += head->len;
 	if (!cur)
@@ -57,6 +57,7 @@ t_str			*decode_format(va_list ap, const char *format, size_t *len)
 	t_str		*head;
 	t_str		*prev;
 
+	root = NULL;
 	if (!(root = init_str(root)))
 		return (NULL);
 	head = root;

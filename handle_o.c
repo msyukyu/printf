@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 17:03:41 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/11 19:26:50 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/14 13:43:04 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ size_t			handle_o(va_list ap, t_str *head, t_mrk *mrk)
 		return (0);
 	head->is_raw = 0;
 	if (mrk->len_prefix)
-		add_prefix("0", head, mrk);
+		add_prefix("0", head);
 	if (mrk->minus)
 		left_justify(' ', head, mrk);
 	else

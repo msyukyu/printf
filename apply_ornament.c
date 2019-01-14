@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 21:02:41 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/11 19:26:14 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/14 13:42:06 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void			right_justify(char filler, t_str *head, t_mrk *mrk)
 		head->txt[offset] = filler;
 }
 
-void			add_prefix(char *prefix, t_str *head, t_mrk *mrk)
+void			add_prefix(char *prefix, t_str *head)
 {
 	size_t		offset;
 	size_t		pos;
