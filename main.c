@@ -21,20 +21,19 @@ int				main(void)
 	
 	
 	// pas afficher de 0 devant
-	ft_printf("%+07d\n", -12345);
-	printf("%+07d\n", -12345);
+	//ft_printf("%+07d\n", -12345);
+	//printf("%+07d\n", -12345);
 
 	//ft_printf("%0#10.x\n", 12345);
 	//printf("%0#10.x\n", 12345);
-	
 
-	//gerer mfw trop grand -> ignorer (sinon bus error)
-	
 	//printf("%Lf", (long double)0.0 * ((long double)-5.0 / (long double)0.0));
 	
 	//a gerer
-	//ft_printf("%.d", 0);
-	//printf("\n%.d", 0);
+	//ft_printf("% .u", 0);
+	//printf("\n%.u", 0);
+	//
+	ft_printf("%.s", "coucou");
 
 	//a gerer (afficher l'espace meme sans le 0)
 	//ft_printf("% .d bonjour", 0);

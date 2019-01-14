@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:41:30 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/14 18:56:49 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/14 20:18:47 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct			s_mrk
 	size_t				len_len_modif;
 	char				type;
 	uintmax_t			base;
+	unsigned char		error;
 }						t_mrk;
 
 typedef struct			s_dbl

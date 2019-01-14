@@ -6,16 +6,11 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:20:04 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/12 15:20:13 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/14 20:51:14 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-
-void			print_null(t_str *head, t_mrk *mrk)
-{
-	ustr_tostr("(null)", head, mrk);
-}
 
 void			ustr_tostr(char *in, t_str *head, t_mrk *mrk)
 {
@@ -23,7 +18,7 @@ void			ustr_tostr(char *in, t_str *head, t_mrk *mrk)
 	size_t		i;
 
 	if (in == NULL)
-		return (print_null(head, mrk));
+		return (ustr_tostr("(null)", head, mrk));
 	len = -1;
 	while (in[++len])
 		;

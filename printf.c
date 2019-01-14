@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:56:39 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/14 17:32:14 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/14 20:49:19 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ int				ft_printf(const char *format, ...)
 		write(1, out, len);
 	va_end(ap);
 	free(out);
-	return (len);
+	return ((!out) ? -1 : (int)len);
 }
