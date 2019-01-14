@@ -30,10 +30,9 @@ int				main(void)
 	//printf("%Lf", (long double)0.0 * ((long double)-5.0 / (long double)0.0));
 	
 	//a gerer
-	//ft_printf("% .u", 0);
-	//printf("\n%.u", 0);
+	ft_printf("% .u", 0);
+	printf("\n%.u", 0);
 	//
-	ft_printf("%.s", "coucou");
 
 	//a gerer (afficher l'espace meme sans le 0)
 	//ft_printf("% .d bonjour", 0);
