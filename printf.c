@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:56:39 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/14 14:35:34 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/14 15:35:06 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,9 @@ int				ft_printf(const char *format, ...)
 	va_start(ap, format);
 	slst = decode_format(ap, format, &len);
 	out = str_lst_join(slst, len);
-	write(1, out, len);
+	if (out)
+		write(1, out, len);
 	va_end(ap);
 	free(out);
 	return (len);
 }
-
-

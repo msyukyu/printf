@@ -1,5 +1,5 @@
 #include "printf.h"
-
+/*
 int				main(void)
 {
 	//ft_printf("_%c_%-c_%10c_%-10c_", 1568, 68843, 48654, 46812);
@@ -45,7 +45,8 @@ int				main(void)
 	//en cas d'erreur, renvoyer -1
 	return (0);
 }
-/*
+*/
+///*
 #include <string.h>
 #include <stdint.h>
 #include <time.h>
@@ -66,7 +67,7 @@ int main(void)
 	printf ("loop %d\n", i2);
   time = clock();
   ft_printf("\n");
-  ft_printf("%%\n");
+ // ft_printf("%%\n");
   ft_printf("%d\n", 42);
   ft_printf("%d%d\n", 42, 41);
   ft_printf("%d%d%d\n", 42, 43, 44);
@@ -81,4 +82,4 @@ int main(void)
  }
  return (0);
 }
-*/
+//*/
