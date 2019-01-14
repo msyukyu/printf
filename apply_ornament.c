@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 21:02:41 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/14 13:42:06 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/14 18:56:09 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,13 @@ void			add_prefix(char *prefix, t_str *head)
 	--offset;
 	while (prefix[++pos])
 		head->txt[offset - pos] = prefix[pos];
+}
+
+void			force_prefix(char *prefix, t_str *head)
+{
+	size_t		pos;
+
+	pos = -1;
+	while (prefix[++pos])
+		head->txt[pos] = prefix[pos];
 }

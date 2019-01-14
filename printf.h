@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:41:30 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/14 13:42:35 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/14 18:56:49 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ t_str					*decode_format(va_list ap, const char *format,
 void					left_justify(char filler, t_str *head, t_mrk *mrk);
 void					right_justify(char filler, t_str *head, t_mrk *mrk);
 void					add_prefix(char *prefix, t_str *head);
+void					force_prefix(char *prefix, t_str *head);
 
 void					uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk,
 							size_t index);

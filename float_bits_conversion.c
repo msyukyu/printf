@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 17:53:15 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/14 13:45:51 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/14 18:29:53 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void					ldouble_bits_tostr(long double in, t_str *head)
 	bits = store_ldouble_bits(in);
 	if (!bits)
 		return ;
-	head->len = sizeof(char) * 80 + 2 * sizeof(char);
+	head->len = sizeof(char) * 80 + 3 * sizeof(char);
 	head->txt = (char*)malloc(sizeof(char) * head->len);
 	if (!bits)
 		return ;
 	index = -1;
 	dots = 0;
-	while (++index < head->len - 2)
+	while (++index < head->len - 3)
 	{
 		head->txt[index + dots] = '0' +
 			(char)((bits[(head->len - 2) / 8 - 1 - index / 8] &
