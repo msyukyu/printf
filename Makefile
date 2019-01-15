@@ -6,54 +6,77 @@
 #    By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/04 12:40:14 by dabeloos          #+#    #+#              #
-#    Updated: 2019/01/15 15:54:32 by dabeloos         ###   ########.fr        #
+#    Updated: 2019/01/15 17:05:16 by dabeloos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= libftprintf.a
 
-C_FILES		= main/apply_ornament.c \
-			  main/bases.c \
-			  main/decode_format.c \
-			  main/init_clean.c \
-			  main/inspect_flags.c \
-			  main/inspect_flags_support.c \
-			  main/printf.c \
-			  handlers/handle_c.c \
-			  handlers/handle_d.c \
-			  handlers/handle_f.c \
-			  handlers/handle_i.c \
-			  handlers/handle_o.c \
-			  handlers/handle_p.c \
-			  handlers/handle_pctg.c \
-			  handlers/handle_s.c \
-			  handlers/handle_u.c \
-			  handlers/handle_x.c \
-			  handlers/handle_xmaj.c \
-			  floats/float_bits_extraction.c \
-			  floats/float_extraction.c \
-			  floats/float_extraction_support.c \
-			  conversions/char_conversion.c \
-			  conversions/float_bits_conversion.c \
-			  conversions/signed_conversion.c \
-			  conversions/str_conversion.c \
-			  conversions/unsigned_conversion.c
-			  
-O_FILES		= *.o#$(C_FILES:.c=.o)
+CC			= gcc
 
-FLAGS		= -c -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror
 
-$(NAME):
-			gcc $(FLAGS) $(C_FILES) -Iincludes
-			ar -rcs $(NAME) $(O_FILES)
+CHEAD		= ./includes
 
-all:		$(NAME)
+MAIN_F		= apply_ornament.o \
+			  bases.o \
+			  decode_format.o \
+			  init_clean.o \
+			  inspect_flags.o \
+			  inspect_flags_support.o \
+			  printf.o
 
-clean:
-			rm -f $(O_FILES)
+HANDLERS_F	= handle_c.o \
+			  handle_d.o \
+			  handle_f.o \
+			  handle_i.o \
+			  handle_o.o \
+			  handle_p.o \
+			  handle_pctg.o \
+			  handle_s.o \
+			  handle_u.o \
+			  handle_x.o \
+			  handle_xmaj.o
+
+FLOATS_F	= float_bits_extraction.o \
+			  float_extraction.o \
+			  float_extraction_support.o
+
+CONVERS_F	= char_conversion.o \
+			  float_bits_conversion.o \
+			  signed_conversion.o \
+			  str_conversion.o \
+			  unsigned_conversion.o
+
+O_F			= $(addprefix ./main/, $(MAIN_F)) \
+			  $(addprefix ./handlers/, $(HANDLERS_F)) \
+			  $(addprefix ./floats/, $(FLOATS_F)) \
+			  $(addprefix ./conversions/, $(CONVERS_F))
+
+END_E='\033[00m'
+RED_E='\033[01;31m'
+GREEN_E='\033[01;32m'
+YELLOW_E='\033[01;33m'
+PURPLE_E='\033[01;35m'
+CYAN_E='\033[01;36m'
+WHITE_E='\033[01;37m'
+BOLD_E='\033[1m'
+UNDERLINE_E='\033[4m'
+
+$(NAME):	$(O_F)
+			@ar -rcs $@ $^
+			@echo "$(GREEN_E)end compilation$(END_E)"
+
+%.o:		%.c
+			@$(CC) $(CFLAGS) -c -o $@ $< -I$(CHEAD)
+
+clean:		
+			@rm -f $(O_F)
+			@echo "$(PURPLE_E)end clean$(END_E)"
 
 fclean:		clean
-			rm -f $(NAME)
+			@rm -f $(NAME)
+			@echo "$(RED_E)end fclean$(END_E)"
 
 re:			fclean all
 
