@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:13:25 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/15 17:31:41 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/15 18:05:43 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ typedef struct			s_polyadic_float
 typedef struct			s_polyadic_float_manager
 {
 	char				sign;
-	PF					*i_part;
+	PF					*i_s;
+	PF					*i_e;
 	ULL					i_size;
-	PF					*d_part;
-	ULL					*d_size;
+	PF					*d_s;
+	PF					*d_e;
+	ULL					d_size;
 }						t_polyadic_float_manager;
 
 #endif
