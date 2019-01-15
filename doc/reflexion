@@ -1,4 +1,4 @@
-positifs : base 1 milliard
+positifs : base 1 milliard de milliards
 
 decalage *2 : on decale tous les bits de 1 sur la gauche
 tous les blocs qui depassent 1 milliard : on divise par 1 milliard et on
@@ -8,17 +8,17 @@ conversion bits a virgule :
 
 on commence par le bit le plus a gauche : 
 	il s'agit du nombre 5
-	on ajoute au premier bloc 5 * 100 millions
+	on ajoute au premier bloc 5 * 100 millions de milliards
 	on decale de un bit a droite
 	on multiplie 5 par 2
-	on ajoute au premier bloc 25 * 10 millions
+	on ajoute au premier bloc 25 * 10 millions de milliards
 	ainsi de suite jusqu'a la multiplication par 1
 	
 		on est certain qu'on ne va jamais depasser le milliard car
 		la serie (1/2)^n tel que n va de 1 a l'infini est convergente vers 1
 
 	lorsqu'on devrait multiplier par 1/10 : on le fait, mais on recupere le reste
-	qu'on ajoute au bloc suivant multiplie par 100 millions
+	qu'on ajoute au bloc suivant multiplie par 100 millions de milliards
 	et ainsi de suite, jusqu'a ce que la division vale 0
 
 	des lors qu'on est passe au bloc suivant, celui-ci utilise le meme principe
@@ -27,8 +27,8 @@ on commence par le bit le plus a gauche :
 	sur le bloc 1 (simple addition)
 
 
-data type : doit contenir au moins 5 fois la base (p : ex 1 milliard)
--> choix du type : unsigned long long : base : 1 milliard de milliard soit
+data type : doit contenir au moins 5 fois la base (p : ex 1 milliard de milliards)
+-> choix du type : unsigned long long : base : 1 milliard de milliards soit
 1 000 000 000 000 000 000 -> avantage : peut meme contenir 10 fois la base,
 ce qui permettra plus de flexibilite en cas de reutilisation de la structure
 pour des traitements autres que la conversion de long double
