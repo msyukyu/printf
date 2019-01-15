@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   float_bits_conversion_support.c                    :+:      :+:    :+:   */
+/*   float_bits_extraction.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/13 17:56:43 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/13 17:56:49 by dabeloos         ###   ########.fr       */
+/*   Created: 2019/01/15 15:10:20 by dabeloos          #+#    #+#             */
+/*   Updated: 2019/01/15 15:10:22 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static unsigned char	*uc_memcpy(unsigned char *dst, const void *src,
 	return (dst);
 }
 
-unsigned char			*uc_memmove(unsigned char *dst, const void *src,
+static unsigned char	*uc_memmove(unsigned char *dst, const void *src,
 		size_t n)
 {
 	if ((void*)dst < src)
@@ -34,4 +34,26 @@ unsigned char			*uc_memmove(unsigned char *dst, const void *src,
 		dst[n] = *((unsigned char *)src + n);
 	}
 	return (dst);
+}
+
+unsigned char			*store_ldouble_bits(long double in)
+{
+	unsigned char	*bits;
+
+	bits = (unsigned char*)malloc(sizeof(in));
+	if (!bits)
+		return (NULL);
+	bits = uc_memmove(bits, &in, sizeof(in));
+	return (bits);
+}
+
+unsigned char			*store_double_bits(double in)
+{
+	unsigned char	*bits;
+
+	bits = (unsigned char*)malloc(sizeof(in));
+	if (!bits)
+		return (NULL);
+	bits = uc_memmove(bits, &in, sizeof(in));
+	return (bits);
 }

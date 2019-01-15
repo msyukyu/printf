@@ -6,7 +6,7 @@
 #    By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/04 12:40:14 by dabeloos          #+#    #+#              #
-#    Updated: 2019/01/14 13:39:04 by dabeloos         ###   ########.fr        #
+#    Updated: 2019/01/15 15:16:16 by dabeloos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ C_FILES		= apply_ornament.c \
 			  char_conversion.c \
 			  decode_format.c \
 			  float_bits_conversion.c \
-			  float_bits_conversion_support.c \
+			  float_bits_extraction.c \
 			  float_extraction.c \
 			  float_extraction_support.c \
 			  handle_c.c \
