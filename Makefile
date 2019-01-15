@@ -6,7 +6,7 @@
 #    By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/04 12:40:14 by dabeloos          #+#    #+#              #
-#    Updated: 2019/01/15 17:08:57 by dabeloos         ###   ########.fr        #
+#    Updated: 2019/01/15 17:13:07 by dabeloos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,15 +53,15 @@ O_F			= $(addprefix ./main/, $(MAIN_F)) \
 			  $(addprefix ./floats/, $(FLOATS_F)) \
 			  $(addprefix ./conversions/, $(CONVERS_F))
 
-END_E='\033[00m'
-RED_E='\033[01;31m'
-GREEN_E='\033[01;32m'
-YELLOW_E='\033[01;33m'
-PURPLE_E='\033[01;35m'
-CYAN_E='\033[01;36m'
-WHITE_E='\033[01;37m'
-BOLD_E='\033[1m'
-UNDERLINE_E='\033[4m'
+END_E		= \033[00m
+RED_E		= \033[01;31m
+GREEN_E		= \033[01;32m
+YELLOW_E	= \033[01;33m
+PURPLE_E	= \033[01;35m
+CYAN_E		= \033[01;36m
+WHITE_E		= \033[01;37m
+BOLD_E		= \033[1m
+UNDERLINE_E	= \033[4m
 
 $(NAME):	$(O_F)
 			@ar -rcs $@ $^
