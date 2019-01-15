@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   polyadic_float.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/21 14:41:30 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/15 14:25:05 by dabeloos         ###   ########.fr       */
+/*   Created: 2019/01/15 14:13:25 by dabeloos          #+#    #+#             */
+/*   Updated: 2019/01/15 14:17:08 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
-# include "printf_support.h"
+#ifndef POLYADIC_FLOAT_H
+# define POLYADIC_FLOAT_H
 
-#include <stdio.h>//a supprimer
+# define PF t_polyadic_float
+# define ULL unsigned long long
+# define PFBASE 1000000000000000000
 
-int						ft_printf(const char *format, ...);
+typedef struct			s_polyadic_float
+{
+	char				sign;
+	ULL					*i_part;
+	ULL					*d_part;
+	ULL					i_size;
+	ULL					d_size;
+}						t_polyadic_float;
 
 #endif
