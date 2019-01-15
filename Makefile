@@ -6,7 +6,7 @@
 #    By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/04 12:40:14 by dabeloos          #+#    #+#              #
-#    Updated: 2019/01/15 17:05:16 by dabeloos         ###   ########.fr        #
+#    Updated: 2019/01/15 17:07:34 by dabeloos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,8 @@ UNDERLINE_E='\033[4m'
 $(NAME):	$(O_F)
 			@ar -rcs $@ $^
 			@echo "$(GREEN_E)end compilation$(END_E)"
+
+all:		$(NAME)
 
 %.o:		%.c
 			@$(CC) $(CFLAGS) -c -o $@ $< -I$(CHEAD)
