@@ -6,7 +6,7 @@
 #    By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/04 12:40:14 by dabeloos          #+#    #+#              #
-#    Updated: 2019/01/15 15:30:11 by dabeloos         ###   ########.fr        #
+#    Updated: 2019/01/15 15:54:32 by dabeloos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ C_FILES		= main/apply_ornament.c \
 			  conversions/str_conversion.c \
 			  conversions/unsigned_conversion.c
 			  
-O_FILES		= $(C_FILES:.c=.o)
+O_FILES		= *.o#$(C_FILES:.c=.o)
 
 FLAGS		= -c -Wall -Wextra -Werror
 

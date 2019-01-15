@@ -1,2 +1,2 @@
-gcc -fsanitize=address -o a.out *.c
+gcc -fsanitize=address */*.c -Iincludes -o a.out
 ./a.out
