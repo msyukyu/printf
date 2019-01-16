@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 18:41:46 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/15 15:14:12 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/16 13:51:06 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ int						extract_float_exponent(size_t len, size_t offset,
 	return ((int)out - ((int)(((unsigned int)1) << (len - 1))) + 1);
 }
 
-char					extract_ldouble_normalized(size_t offset,
+unsigned char			extract_ldouble_normalized(size_t offset,
 							unsigned char *bits, size_t size)
 {
-	return ((char)((bits[size - 1 - offset / 8] & (((unsigned char)1) <<
+	return (((bits[size - 1 - offset / 8] & (((unsigned char)1) <<
 						(7 - offset % 8))) >> (7 - offset % 8)));
 }
 
-uintmax_t				extract_float_fraction(size_t len, size_t offset,
+unsigned long long		extract_float_fraction(size_t len, size_t offset,
 							unsigned char *bits, size_t size)
 {
 	size_t			i;

@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 17:54:42 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/15 17:36:50 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/16 13:50:03 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_dbl			*extract_double_infos(double in)
 {
 	unsigned char	*bits;
 	t_dbl			*dbl;
+	int				constant;
 
 	bits = store_double_bits(in);
 	if(!bits)
@@ -44,7 +45,9 @@ t_dbl			*extract_double_infos(double in)
 		return (NULL);
 	dbl->sign = extract_float_sign(bits, sizeof(double));
 	dbl->exponent = extract_float_exponent(11, 1, bits, sizeof(double));
-	dbl->normalized = -1;
+	constant = (int)(((unsigned int)1) << (10));
+	dbl->normalized = (dbl->exponent == constant ||
+			dbl->exponent == -constant + 1) ? 0 : 1;
 	dbl->fraction = extract_float_fraction(52, 12, bits, sizeof(double));
 	free(bits);
 	return (dbl);

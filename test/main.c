@@ -18,6 +18,8 @@ int				main(void)
 	double a = 0.0 * (5.0 / 0.0);
 	ft_printf("%Lf\n%Lf\n%Lf\n%Lf\n%Lf\n%Lf\n", d, e, f, g, h);
 	ft_printf("%f\n%f\n%f\n%f\n%f\n%f\n", 1.0, 2.0, -2.0, 3.0, 0.5, a);
+
+	printf("%.50f", 10.15);
 	
 	
 	// pas afficher de 0 devant

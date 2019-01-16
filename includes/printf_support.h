@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:17:23 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/15 15:06:47 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/16 13:51:01 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,6 @@ typedef struct			s_mrk
 	uintmax_t			base;
 	unsigned char		error;
 }						t_mrk;
-
-typedef struct			s_dbl
-{
-	char				sign;
-	char				normalized;
-	int					exponent;
-	uintmax_t			fraction;
-}						t_dbl;
 
 t_str					*init_str(t_str *s);
 t_str					*clean_str(t_str *s);
@@ -109,15 +101,12 @@ unsigned char			*store_double_bits(double in);
 void					double_bits_tostr(double in, t_str *head);
 void					ldouble_bits_tostr(long double in, t_str *head);
 
-t_dbl					*extract_ldouble_infos(long double in);
-t_dbl					*extract_double_infos(double in);
-
 char					extract_float_sign(unsigned char *bits, size_t size);
 int						extract_float_exponent(size_t len, size_t offset,
 							unsigned char *bits, size_t size);
-char					extract_ldouble_normalized(size_t offset,
+unsigned char			extract_ldouble_normalized(size_t offset,
 							unsigned char *bits, size_t size);
-uintmax_t				extract_float_fraction(size_t len, size_t offset,
+unsigned long long		extract_float_fraction(size_t len, size_t offset,
 							unsigned char *bits, size_t size);
 
 char					symb_lc(size_t index);

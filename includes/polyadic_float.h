@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:13:25 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/15 18:05:43 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/16 13:49:58 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,19 @@
 # define PFBASE (unsigned long long)1000000000000000000
 # define PFMNG struct s_polyadic_float_manager
 
+typedef struct			s_dbl
+{
+	char				sign;
+	unsigned char		normalized;
+	int					exponent;
+	ULL					fraction;
+}						t_dbl;
+
 typedef struct			s_polyadic_float
 {
 	ULL					value;
+	ULL					shadow;
+	ULL					inc;
 	PF					*prev;
 	PF					*next;
 	PFMNG				*manager;
@@ -36,5 +46,13 @@ typedef struct			s_polyadic_float_manager
 	PF					*d_e;
 	ULL					d_size;
 }						t_polyadic_float_manager;
+
+t_dbl					*extract_ldouble_infos(long double in);
+t_dbl					*extract_double_infos(double in);
+
+PFMNG					*init_pfmng(t_dbl *dbl);
+PF						*init_pf(ULL inc);
+
+PFMNG					*pf_boot(double in);
 
 #endif
