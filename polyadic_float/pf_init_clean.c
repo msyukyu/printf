@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 17:51:44 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/16 13:13:45 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/16 16:15:06 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ PFMNG			*init_pfmng(t_dbl *dbl)
 	if (!mng)
 		return (NULL);
 	mng->sign = dbl->sign;
-	if (!(mng->i_s = init_pf(0)))
+	if (!(mng->i_s = init_pf(0, NULL, NULL)))
 	{
 		free(mng);
 		return (NULL);
 	}
 	mng->i_e = mng->i_s;
 	mng->i_size = 1;
-	if (!(mng->d_s = init_pf(0)))
+	if (!(mng->d_s = init_pf(0, mng->i_s, NULL)))
 	{
 		free(mng->i_s);
 		free(mng);
@@ -35,12 +35,11 @@ PFMNG			*init_pfmng(t_dbl *dbl)
 	}
 	mng->d_e = mng->d_s;
 	mng->d_size = 1;
-	mng->i_s->prev = mng->d_s;
-	mng->d_s->next = mng->i_s;
+	mng->i_s->right = mng->d_s;
 	return (mng);
 }
 
-PF				*init_pf(ULL inc)
+PF				*init_pf(ULL inc, PF *left, PF *right)
 {
 	PF			*pf;
 
@@ -50,8 +49,9 @@ PF				*init_pf(ULL inc)
 	pf->value = 0;
 	pf->inc = inc;
 	pf->shadow = 0;
-	pf->prev = NULL;
-	pf->next = NULL;
+	pf->inc_shadow = 0;
+	pf->right = right;
+	pf->left = left;
 	return (pf);
 }
 
@@ -63,12 +63,12 @@ void			clean_pfmng(PFMNG *mng)
 	prev = mng->d_e;
 	if (!prev)
 		return ;
-	cur = prev->next;
+	cur = prev->left;
 	while (prev)
 	{
 		free(prev);
 		prev = cur;
-		cur = prev->next;
+		cur = prev->left;
 	}
 	free(mng);
 }

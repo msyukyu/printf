@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:17:23 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/16 13:51:01 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/16 15:05:16 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,18 +96,8 @@ void					ustr_tostr(char *in, t_str *head, t_mrk *mrk);
 //void					ldouble_tostr(long double in, t_str *head, t_mrk *mrk);
 //void					double_tostr(double in, t_str *head, t_mrk *mrk);
 
-unsigned char			*store_ldouble_bits(long double in);
-unsigned char			*store_double_bits(double in);
 void					double_bits_tostr(double in, t_str *head);
 void					ldouble_bits_tostr(long double in, t_str *head);
-
-char					extract_float_sign(unsigned char *bits, size_t size);
-int						extract_float_exponent(size_t len, size_t offset,
-							unsigned char *bits, size_t size);
-unsigned char			extract_ldouble_normalized(size_t offset,
-							unsigned char *bits, size_t size);
-unsigned long long		extract_float_fraction(size_t len, size_t offset,
-							unsigned char *bits, size_t size);
 
 char					symb_lc(size_t index);
 char					symb_uc(size_t index);

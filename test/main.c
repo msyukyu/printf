@@ -19,7 +19,8 @@ int				main(void)
 	ft_printf("%Lf\n%Lf\n%Lf\n%Lf\n%Lf\n%Lf\n", d, e, f, g, h);
 	ft_printf("%f\n%f\n%f\n%f\n%f\n%f\n", 1.0, 2.0, -2.0, 3.0, 0.5, a);
 
-	printf("%.50f", 10.15);
+	//printf("%.100f", 10.15);
+	printf("%llu", (unsigned long long)-1);
 	
 	
 	// pas afficher de 0 devant

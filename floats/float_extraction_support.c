@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 18:41:46 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/16 13:51:06 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/16 15:07:12 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ char					extract_float_sign(unsigned char *bits, size_t size)
 int						extract_float_exponent(size_t len, size_t offset,
 							unsigned char *bits, size_t size)
 {
-	size_t			i;
-	unsigned int	out;
+	size_t				i;
+	unsigned int		out;
 
 	i = offset - 1;
 	out = 0;
@@ -41,19 +41,22 @@ unsigned char			extract_ldouble_normalized(size_t offset,
 						(7 - offset % 8))) >> (7 - offset % 8)));
 }
 
-unsigned long long		extract_float_fraction(size_t len, size_t offset,
+t_frac					extract_float_fraction(size_t len, size_t offset,
 							unsigned char *bits, size_t size)
 {
-	size_t			i;
-	uintmax_t		out;
+	size_t				i;
+	t_frac				frac;
 
 	i = offset - 1;
-	out = 0;
+	frac.fraction = 0;
+	frac.left_offset = 0;
 	while (++i < offset + len)
 	{
-		out |= ((uintmax_t)(bits[size - 1 - i / 8] &
+		frac.fraction |= ((unsigned long long)(bits[size - 1 - i / 8] &
 					(((unsigned char)1) << (7 - i % 8))) >> (7 - i % 8)) <<
 						(len + offset - 1 - i);
+		if (!frac.fraction)
+			++frac.left_offset;
 	}
-	return (out);
+	return (frac);
 }
