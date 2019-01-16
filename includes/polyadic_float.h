@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:13:25 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/16 13:49:58 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/16 13:58:14 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ t_dbl					*extract_double_infos(double in);
 PFMNG					*init_pfmng(t_dbl *dbl);
 PF						*init_pf(ULL inc);
 
-PFMNG					*pf_boot(double in);
+PFMNG					*pf_boot(long double in);
 
 #endif
