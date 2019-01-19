@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/19 18:02:16 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/19 18:07:46 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,10 @@ PFMNG			*pf_boot(long double in)
 	}
 	mng->i_s->value = dbl->normalized;
 	decode_fraction(dbl, mng, shadow);
+	while ((dbl->exponent)-- > 0)
+		shift_left(mng);
+	while ((dbl->exponent)++ < 0)
+		shift_right(mng);
 
 	PF				*yo;
 	yo = mng->i_e;
