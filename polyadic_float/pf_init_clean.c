@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 17:51:44 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/16 16:15:06 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/19 12:56:14 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ PFMNG			*init_pfmng(t_dbl *dbl)
 		return (NULL);
 	}
 	mng->i_e = mng->i_s;
-	mng->i_size = 1;
 	if (!(mng->d_s = init_pf(0, mng->i_s, NULL)))
 	{
 		free(mng->i_s);
@@ -34,24 +33,31 @@ PFMNG			*init_pfmng(t_dbl *dbl)
 		return (NULL);
 	}
 	mng->d_e = mng->d_s;
-	mng->d_size = 1;
-	mng->i_s->right = mng->d_s;
 	return (mng);
 }
 
-PF				*init_pf(ULL inc, PF *left, PF *right)
+PF				*init_pf(ULL value, PF *left, PF *right)
 {
 	PF			*pf;
 
 	pf = (PF*)malloc(sizeof(PF));
 	if (!pf)
 		return (NULL);
-	pf->value = 0;
-	pf->inc = inc;
-	pf->shadow = 0;
-	pf->inc_shadow = 0;
+	pf->value = value;
+	pf->inc = 0;
 	pf->right = right;
+	pf->index = 0;
+	if (right)
+	{
+		pf->index = right->index + 1;
+		right->left = pf;
+	}
 	pf->left = left;
+	if (left)
+	{
+		pf->index = left->index - 1;
+		left->right = pf;
+	}
 	return (pf);
 }
 
