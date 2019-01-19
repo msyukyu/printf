@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/19 14:41:04 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/19 16:34:17 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,34 @@ ULL				find_most_significant_bit(ULL in)
 	return ((in >> 1) + 1);
 }
 
+unsigned char	add_shadow(PFMNG *mng, PFMNG *shadow)
+{
+	PF				*shadow_cur;
+	PF				*cur;
+	int				offset;
+
+	cur = mng->d_e;
+	shadow_cur = shadow->d_e;
+	offset = cur->index - shadow_cur->index;
+	while (offset-- > 0)
+		if (!(cur = add_right(0, mng)))
+			return (0);
+	while (shadow_cur && cur)
+	{
+		cur->value += cur->inc;
+		cur->inc = 0;
+		cur->value += shadow_cur->value;
+		while (cur->value >= PFBASE)
+		{
+			cur->value -= PFBASE;
+			cur->left->inc += 1;
+		}
+		cur = cur->left;
+		shadow_cur = shadow_cur->left;
+	}
+	return (1);
+}
+
 unsigned char	decode_fraction(t_dbl *dbl, PFMNG *mng, PFMNG *shadow)
 {
 	unsigned int	left_offset;
@@ -75,15 +103,15 @@ unsigned char	decode_fraction(t_dbl *dbl, PFMNG *mng, PFMNG *shadow)
 	while (++left_offset < dbl->fraction.left_offset)
 		shift_right(shadow);
 	active_bit = find_most_significant_bit(dbl->fraction.fraction);
-	while (dbl->fraction.fraction > 0)
+	while (dbl->fraction.fraction > 0 && active_bit)
 	{
 		shift_right(shadow);
 		if (dbl->fraction.fraction & active_bit)
 		{
-			//ajouter shadow a mng
-			//retirer active_bit a fraction
+			add_shadow(mng, shadow);
+			dbl->fraction.fraction -= active_bit;
 		}
-		//decaler active_bit
+		active_bit = active_bit >> 1;
 	}
 	return (1);
 }
@@ -104,5 +132,13 @@ PFMNG			*pf_boot(long double in)
 	}
 	mng->i_s->value = dbl->normalized;
 	decode_fraction(dbl, mng, shadow);
+
+	PF				*yo;
+	yo = mng->d_s;
+	while (yo)
+	{
+		printf("%llu", yo->value);
+		yo = yo->right;
+	}
 	return (mng);
 }
