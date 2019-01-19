@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/19 17:35:57 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/19 18:02:16 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,49 @@ unsigned char	shift_right(PFMNG *mng)
 		cur->value = cur->value >> 1;
 		cur = cur->left;
 	}
-	cur = mng->i_e->right;
+	cur = mng->d_e;
 	while (cur)
 	{
 		cur->value += cur->inc;
+		while (cur->value >= PFBASE)
+		{
+			cur->value -= PFBASE;
+			cur->left->inc += 1;
+		}
 		cur->inc = 0;
+		cur = cur->left; //debordement bloc
+	}
+	return (1);
+}
+
+unsigned char	shift_left(PFMNG *mng)
+{
+	PF				*cur;
+
+	if ((mng->i_e->value & 1) && !add_left(0, mng))
+		return (0);
+	cur = mng->i_e;
+	while (cur)
+	{
+		cur->value = cur->value << 1;
+		while (cur->value >= PFBASE)
+		{
+			cur->value -= PFBASE;
+			cur->left->inc += 1;
+		}
 		cur = cur->right;
+	}
+	cur = mng->d_e->left;
+	while (cur)
+	{
+		cur->value += cur->inc;
+		while (cur->value >= PFBASE)
+		{
+			cur->value -= PFBASE;
+			cur->left->inc += 1;
+		}
+		cur->inc = 0;
+		cur = cur->left; // attention debordement de bloc ? -> parfois creer nouveau bloc a droite ?
 	}
 	return (1);
 }
@@ -86,7 +123,7 @@ unsigned char	add_shadow(PFMNG *mng, PFMNG *shadow)
 		{
 			cur->value -= PFBASE;
 			cur->left->inc += 1;
-		}
+		} // debordement bloc
 		cur = cur->left;
 		shadow_cur = shadow_cur->left;
 	}
@@ -132,5 +169,14 @@ PFMNG			*pf_boot(long double in)
 	}
 	mng->i_s->value = dbl->normalized;
 	decode_fraction(dbl, mng, shadow);
+
+	PF				*yo;
+	yo = mng->i_e;
+	while (yo)
+	{
+		printf("%llu\n", yo->value);
+		yo = yo->right;
+	}
+	printf("\n");
 	return (mng);
 }
