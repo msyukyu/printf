@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/19 13:16:42 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/19 14:41:04 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@ PF				*add_right(ULL value, PFMNG *mng)
 		return (NULL);
 	mng->d_e = mng->d_e->right;
 	return (mng->d_e);
+}
+
+PF				*add_left(ULL value, PFMNG *mng)
+{
+	if (!init_pf(0, NULL, mng->i_e))
+		return (NULL);
+	mng->i_e = mng->i_e->left;
+	return (mng->i_e);
 }
 
 unsigned char	shift_right(PFMNG *mng)
@@ -44,17 +52,39 @@ unsigned char	shift_right(PFMNG *mng)
 	return (1);
 }
 
+ULL				find_most_significant_bit(ULL in)
+{
+	size_t			bits;
+
+	bits = 1;
+	while (bits < sizeof(in))
+	{
+		in |= in >> bits;
+		bits = bits << 1;
+	}
+	return ((in >> 1) + 1);
+}
+
 unsigned char	decode_fraction(t_dbl *dbl, PFMNG *mng, PFMNG *shadow)
 {
 	unsigned int	left_offset;
+	ULL				active_bit;
 
 	shadow->d_s->value = PFBASE >> 1;
 	left_offset = 0;
 	while (++left_offset < dbl->fraction.left_offset)
+		shift_right(shadow);
+	active_bit = find_most_significant_bit(dbl->fraction.fraction);
+	while (dbl->fraction.fraction > 0)
 	{
 		shift_right(shadow);
+		if (dbl->fraction.fraction & active_bit)
+		{
+			//ajouter shadow a mng
+			//retirer active_bit a fraction
+		}
+		//decaler active_bit
 	}
-	printf("%llu\n", shadow->d_s->value);
 	return (1);
 }
 
