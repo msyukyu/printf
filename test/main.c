@@ -26,6 +26,7 @@ int				main(void)
 	long double dd = 0.0626;
 	long double ee = 0.03126;
 	ft_printf("%Lf\n%Lf\n%Lf\n%Lf\n%Lf\n", aa, bb, cc, dd, ee);
+	printf("%.50Lf\n%.50Lf\n%.50Lf\n%.50Lf\n%.50Lf\n", aa, bb, cc, dd, ee);
 	//printf("%.100f", 10.15);
 	
 	

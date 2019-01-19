@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/19 16:34:17 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/19 17:35:57 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ unsigned char	shift_right(PFMNG *mng)
 {
 	PF				*cur;
 
-	if ((mng->d_e->value & 1) && !add_right(PFBASE, mng))
+	if ((mng->d_e->value & 1) && !add_right(0, mng))
 		return (0);
 	cur = mng->d_e;
 	while (cur)
@@ -57,7 +57,7 @@ ULL				find_most_significant_bit(ULL in)
 	size_t			bits;
 
 	bits = 1;
-	while (bits < sizeof(in))
+	while (bits < sizeof(in) * 8)
 	{
 		in |= in >> bits;
 		bits = bits << 1;
@@ -132,13 +132,5 @@ PFMNG			*pf_boot(long double in)
 	}
 	mng->i_s->value = dbl->normalized;
 	decode_fraction(dbl, mng, shadow);
-
-	PF				*yo;
-	yo = mng->d_s;
-	while (yo)
-	{
-		printf("%llu", yo->value);
-		yo = yo->right;
-	}
 	return (mng);
 }
