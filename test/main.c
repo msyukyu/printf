@@ -9,6 +9,7 @@ int				main(void)
 	//ft_printf("%10p_%10p_%10p", NULL, "COUCOU", "COUCOU");
 	//printf("\n");
 	//printf("%10p_%10p_%10p", NULL, "COUCOU", "COUCOU");
+	/*
 	long double d = 1.0;
 	long double e = 2.0;
 	long double f = -2.0;
@@ -18,9 +19,15 @@ int				main(void)
 	double a = 0.0 * (5.0 / 0.0);
 	ft_printf("%Lf\n%Lf\n%Lf\n%Lf\n%Lf\n%Lf\n", d, e, f, g, h);
 	ft_printf("%f\n%f\n%f\n%f\n%f\n%f\n", 1.0, 2.0, -2.0, 3.0, 0.5, a);
-
+	*/
+	long double aa = 0.6;
+	long double bb = 0.26;
+	long double cc = 0.126;
+	long double dd = 0.0626;
+	long double ee = 0.03126;
+	ft_printf("%Lf\n%Lf\n%Lf\n%Lf\n%Lf\n", aa, bb, cc, dd, ee);
 	//printf("%.100f", 10.15);
-	printf("%llu", (unsigned long long)-1);
+	
 	
 	
 	// pas afficher de 0 devant
