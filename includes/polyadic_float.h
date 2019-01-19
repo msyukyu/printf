@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:13:25 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/19 12:56:09 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/19 13:14:15 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ PFMNG					*init_pfmng(t_dbl *dbl);
 PF						*init_pf(ULL value, PF *left, PF *right);
 
 PFMNG					*pf_boot(long double in);
-void					decode_fraction(t_dbl *dbl, PFMNG *mng, PFMNG *shadow);
+unsigned char			decode_fraction(t_dbl *dbl, PFMNG *mng, PFMNG *shadow);
 
 #endif

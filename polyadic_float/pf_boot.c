@@ -6,35 +6,56 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/19 12:55:41 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/19 13:16:42 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-unsigned char	shift_left(PFMNG *mng)
+PF				*add_right(ULL value, PFMNG *mng)
+{
+	if (!init_pf(PFBASE, mng->d_e, NULL))
+		return (NULL);
+	mng->d_e = mng->d_e->right;
+	return (mng->d_e);
+}
+
+unsigned char	shift_right(PFMNG *mng)
 {
 	PF				*cur;
 
-	if ((mng->d_e->value & 1) && !init_pf((PFBASE / 10) * 5, mng->d_e, NULL))
+	if ((mng->d_e->value & 1) && !add_right(PFBASE, mng))
 		return (0);
 	cur = mng->d_e;
 	while (cur)
 	{
+		if (cur->value & 1)
+			cur->right->inc = PFBASE >> 1;
+		cur->value = cur->value >> 1;
 		cur = cur->left;
 	}
+	cur = mng->i_e->right;
+	while (cur)
+	{
+		cur->value += cur->inc;
+		cur->inc = 0;
+		cur = cur->right;
+	}
+	return (1);
 }
 
-void			decode_fraction(t_dbl *dbl, PFMNG *mng, PFMNG *shadow)
+unsigned char	decode_fraction(t_dbl *dbl, PFMNG *mng, PFMNG *shadow)
 {
 	unsigned int	left_offset;
 
-	shadow->d_s->value = (PFBASE / 10) * 5;
+	shadow->d_s->value = PFBASE >> 1;
 	left_offset = 0;
 	while (++left_offset < dbl->fraction.left_offset)
 	{
-		shift_left(shadow);
+		shift_right(shadow);
 	}
+	printf("%llu\n", shadow->d_s->value);
+	return (1);
 }
 
 PFMNG			*pf_boot(long double in)
@@ -53,4 +74,5 @@ PFMNG			*pf_boot(long double in)
 	}
 	mng->i_s->value = dbl->normalized;
 	decode_fraction(dbl, mng, shadow);
+	return (mng);
 }
