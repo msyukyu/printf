@@ -25,8 +25,13 @@ int				main(void)
 	long double cc = 0.126;
 	long double dd = 0.0626;
 	long double ee = 0.03126;
+	long double ff = 9876546513.156;
+	long double gg = 65484.268768465;
 	ft_printf("%Lf\n%Lf\n%Lf\n%Lf\n%Lf\n", aa, bb, cc, dd, ee);
-	printf("%.50Lf\n%.50Lf\n%.50Lf\n%.50Lf\n%.50Lf\n", aa, bb, cc, dd, ee);
+	printf("%.100Lf\n%.100Lf\n%.100Lf\n%.100Lf\n%.100Lf\n", aa, bb, cc, dd, ee);
+	ft_printf("%.100Lf\n%.100Lf\n", ff, gg);
+	printf("%.100Lf\n%.100Lf\n", ff, gg);
+
 	//printf("%.100f", 10.15);
 	
 	

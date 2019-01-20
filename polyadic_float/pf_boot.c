@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/20 16:00:03 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/20 16:32:38 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ unsigned char	add_shadow(PFMNG *mng, PFMNG *shadow)
 	while (shadow_cur && cur)
 	{
 		cur->value += shadow_cur->value;
-		if (!add_inc(0, mng))
+		if (!add_inc(cur, mng))
 			return (0);
 		cur = cur->left;
 		shadow_cur = shadow_cur->left;
@@ -170,7 +170,7 @@ PFMNG			*pf_boot(long double in)
 	decode_fraction(dbl, mng, shadow);
 	while ((dbl->exponent)-- > 0)
 		shift_left(mng);
-	while ((dbl->exponent)++ < 0)
+	while (++(dbl->exponent) < 0)
 		shift_right(mng);
 
 	PF				*yo;
