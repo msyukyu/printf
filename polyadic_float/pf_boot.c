@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/19 18:07:46 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/01/20 16:00:03 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 PF				*add_right(ULL value, PFMNG *mng)
 {
-	if (!init_pf(PFBASE, mng->d_e, NULL))
+	if (!init_pf(value, mng->d_e, NULL))
 		return (NULL);
 	mng->d_e = mng->d_e->right;
 	return (mng->d_e);
@@ -22,10 +22,24 @@ PF				*add_right(ULL value, PFMNG *mng)
 
 PF				*add_left(ULL value, PFMNG *mng)
 {
-	if (!init_pf(0, NULL, mng->i_e))
+	if (!init_pf(value, NULL, mng->i_e))
 		return (NULL);
 	mng->i_e = mng->i_e->left;
 	return (mng->i_e);
+}
+
+unsigned char	add_inc(PF *pf, PFMNG *mng)
+{
+	pf->value += pf->inc;
+	while (pf->value >= PFBASE)
+	{
+		pf->value -= PFBASE;
+		if (!pf->left && !add_left(0, mng))
+			return (0);
+		pf->left->inc += 1;
+	}
+	pf->inc = 0;
+	return (1);
 }
 
 unsigned char	shift_right(PFMNG *mng)
@@ -45,14 +59,9 @@ unsigned char	shift_right(PFMNG *mng)
 	cur = mng->d_e;
 	while (cur)
 	{
-		cur->value += cur->inc;
-		while (cur->value >= PFBASE)
-		{
-			cur->value -= PFBASE;
-			cur->left->inc += 1;
-		}
-		cur->inc = 0;
-		cur = cur->left; //debordement bloc
+		if (!add_inc(cur, mng))
+			return (0);
+		cur = cur->left;
 	}
 	return (1);
 }
@@ -77,14 +86,9 @@ unsigned char	shift_left(PFMNG *mng)
 	cur = mng->d_e->left;
 	while (cur)
 	{
-		cur->value += cur->inc;
-		while (cur->value >= PFBASE)
-		{
-			cur->value -= PFBASE;
-			cur->left->inc += 1;
-		}
-		cur->inc = 0;
-		cur = cur->left; // attention debordement de bloc ? -> parfois creer nouveau bloc a droite ?
+		if (!add_inc(cur, mng))
+			return (0);
+		cur = cur->left;
 	}
 	return (1);
 }
@@ -116,14 +120,9 @@ unsigned char	add_shadow(PFMNG *mng, PFMNG *shadow)
 			return (0);
 	while (shadow_cur && cur)
 	{
-		cur->value += cur->inc;
-		cur->inc = 0;
 		cur->value += shadow_cur->value;
-		while (cur->value >= PFBASE)
-		{
-			cur->value -= PFBASE;
-			cur->left->inc += 1;
-		} // debordement bloc
+		if (!add_inc(0, mng))
+			return (0);
 		cur = cur->left;
 		shadow_cur = shadow_cur->left;
 	}
