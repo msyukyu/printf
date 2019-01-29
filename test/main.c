@@ -1,4 +1,6 @@
 #include "printf.h"
+#include "limits.h"
+#include "float.h"
 ///*
 int				main(void)
 {
@@ -27,10 +29,13 @@ int				main(void)
 	long double ee = 0.03126;
 	long double ff = 9876546513.156;
 	long double gg = 65484.268768465;
+	long double hh = LDBL_MAX; 
 	ft_printf("%Lf\n%Lf\n%Lf\n%Lf\n%Lf\n", aa, bb, cc, dd, ee);
 	printf("%.100Lf\n%.100Lf\n%.100Lf\n%.100Lf\n%.100Lf\n", aa, bb, cc, dd, ee);
 	ft_printf("%.100Lf\n%.100Lf\n", ff, gg);
 	printf("%.100Lf\n%.100Lf\n", ff, gg);
+	ft_printf("%.10000Lf\n", hh);
+	printf("%.10000Lf\n", hh);
 
 	//printf("%.100f", 10.15);
 	
