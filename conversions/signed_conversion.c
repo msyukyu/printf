@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:52:22 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/16 20:10:43 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/16 20:33:49 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 static void			ornate_signed(t_str *head, t_mrk *mrk, size_t i, char sign)
 {
+	size_t		end;
+
 	while (++i < mrk->precision || (!mrk->minus && mrk->zero && i < head->len))
 		head->txt[head->len - 1 - i] = '0';
-	i = (i == head->len) ? i - 1 : i;
+	end = (i == head->len) ? 1 : 0;
 	if (sign == -1)
-		head->txt[head->len - 1 - i++] = '-';
+		head->txt[head->len - 1 + end - i++] = '-';
 	else if (mrk->plus)
-		head->txt[head->len - 1 - i++] = '+';
+		head->txt[head->len - 1 + end - i++] = '+';
 	else if (mrk->blank)
-		head->txt[head->len - 1 - i++] = ' ';
+		head->txt[head->len - 1 + end - i++] = ' ';
 	while (i < head->len)
 		head->txt[head->len - 1 - i++] = 0;
 }
@@ -33,9 +35,7 @@ void			int_tostr(intmax_t in, t_str *head, t_mrk *mrk, size_t index)
 	size_t			i;
 	unsigned char	prefix;
 
-	sign = 1;
-	if (in < 0)
-		sign = -1;
+	sign = (in < 0) ? -1 : 1;
 	if (in > -1 * (intmax_t)mrk->base && in < (intmax_t)mrk->base)
 	{
 		i = (mrk->mfw > mrk->precision) ? mrk->mfw : mrk->precision;
