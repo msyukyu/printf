@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 17:01:34 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/12 14:05:13 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/16 21:59:09 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void			handle_u_t(va_list ap, t_str *head, t_mrk *mrk)
 			else
 				uint_tostr((unsigned short)va_arg(ap, uintmax_t), head, mrk, 0);
 		}
+		else if (*(mrk->len_modif) == 'j')
+			uint_tostr((uintmax_t)va_arg(ap, uintmax_t), head, mrk, 0);
+		else if (*(mrk->len_modif) == 'z')
+			uint_tostr((size_t)va_arg(ap, size_t), head, mrk, 0);
 	}
 	else
 		uint_tostr((unsigned int)va_arg(ap, uintmax_t), head, mrk, 0);

@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 16:58:26 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/16 21:14:59 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/16 22:00:33 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ void			handle_s_t(va_list ap, t_str *head, t_mrk *mrk)
 			else
 				int_tostr((short)va_arg(ap, intmax_t), head, mrk, 0);
 		}
+		else if (*(mrk->len_modif) == 'j')
+			int_tostr((intmax_t)va_arg(ap, intmax_t), head, mrk, 0);
+		else if (*(mrk->len_modif) == 'z')
+			int_tostr((ssize_t)va_arg(ap, intmax_t), head, mrk, 0);
 	}
 	else
 		int_tostr((int)va_arg(ap, intmax_t), head, mrk, 0);

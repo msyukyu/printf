@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 20:21:48 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/14 16:57:23 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/16 22:00:28 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t			size_length_modifier(char *in)
 
 	pos = -1;
 	m = in[++pos];
-	if (m == 'l' || m == 'h' || m == 'L')
+	if (m == 'l' || m == 'h' || m == 'L' || m == 'j' || m == 'z')
 	{
 		m = in[++pos];
 		if (m == in[pos - 1] && (m == 'h' || m == 'l'))
