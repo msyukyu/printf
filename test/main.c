@@ -64,8 +64,8 @@ int				main(void)
 	//en cas d'erreur, renvoyer -1
 	//
 	
-	ft_printf("%4.15d", 42);
-	printf("%4.15d", 42);
+	ft_printf("%.10d\n", -42);
+	printf("%.10d\n", -42);
 	
 	return (0);
 }

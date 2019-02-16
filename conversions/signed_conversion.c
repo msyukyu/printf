@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:52:22 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/16 20:33:49 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/16 21:01:49 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void			int_tostr(intmax_t in, t_str *head, t_mrk *mrk, size_t index)
 	if (in > -1 * (intmax_t)mrk->base && in < (intmax_t)mrk->base)
 	{
 		i = (mrk->mfw > mrk->precision) ? mrk->mfw : mrk->precision;
+		i = (mrk->mfw <= mrk->precision && i != 0 && !mrk->minus &&
+				sign == -1) ? i + 1 : i;
 		prefix = (sign == -1 || mrk->plus || mrk->blank) ? 1 : 0;
 		head->len = (i > index + 1 + prefix) ? i : index + 1 + prefix;
 		head->txt = (char*)malloc(sizeof(char) * head->len);
