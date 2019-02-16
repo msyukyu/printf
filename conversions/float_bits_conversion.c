@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 17:53:15 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/19 16:34:55 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/16 16:35:25 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ void					ldouble_bits_tostr(long double in, t_str *head)
 			head->txt[index + ++dots] = '.';
 	}
 	free(bits);
-
-
-	pf_boot(in);
 }
 
 void					double_bits_tostr(double in, t_str *head)

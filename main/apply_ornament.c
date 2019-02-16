@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 21:02:41 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/14 18:56:09 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/16 19:04:32 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,19 @@ void			force_prefix(char *prefix, t_str *head)
 	pos = -1;
 	while (prefix[++pos])
 		head->txt[pos] = prefix[pos];
+}
+
+void			appleft_prefix(char *prefix, t_str *head, size_t len_prefix,
+		char ignore)
+{
+	size_t		offset;
+	size_t		pos;
+
+	offset = -1;
+	while (head->txt[++offset] != ignore)
+		;
+	pos = offset - 1;
+	while (++pos < offset + len_prefix)
+		head->txt[pos] = head->txt[pos - len_prefix];
+	force_prefix(prefix, head);
 }
