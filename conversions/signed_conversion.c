@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:52:22 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/16 21:01:49 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/16 21:29:18 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ static void			ornate_signed(t_str *head, t_mrk *mrk, size_t i, char sign)
 {
 	size_t		end;
 
-	while (++i < mrk->precision || (!mrk->minus && mrk->zero && i < head->len))
+	while (++i < mrk->precision ||
+			((!mrk->arg_precision || mrk->mfw <= mrk->precision) &&
+			 !mrk->minus && mrk->zero && i < head->len))
 		head->txt[head->len - 1 - i] = '0';
 	end = (i == head->len) ? 1 : 0;
 	if (sign == -1)

@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 16:58:26 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/16 19:50:34 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/16 21:14:59 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,11 @@ size_t			handle_d(va_list ap, t_str *head, t_mrk *mrk)
 		left_justify(' ', head, mrk);
 	else
 	{
+		/*
 		if (mrk->zero)
 			right_justify('0', head, mrk);
 		else
+		*/
 			right_justify(' ', head, mrk);
 	}
 	return ((head->txt) ? head->len : 0);
