@@ -6,13 +6,14 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:19:17 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/16 19:16:25 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/17 19:29:25 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void			uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk, size_t index)
+void			re_uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk,
+			size_t index)
 {
 	size_t		i;
 
@@ -36,4 +37,25 @@ void			uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk, size_t index)
 		uint_tostr(in / mrk->base, head, mrk, index + 1);
 	head->txt[head->len - index - 1] = (mrk->type == 'X') ?
 		symb_uc(in % mrk->base) : symb_lc(in % mrk->base);
+}
+
+void			uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk, size_t index)
+{
+	size_t			i;
+
+	if (!(in == 0 && index == 0 &&
+				mrk->arg_precision && mrk->precision == 0))
+		return re_uint_tostr(in, head, mrk, index);
+	if (mrk->mfw == 0 && !(mrk->type == 'o' && mrk->hashtag))
+		return ;
+	i = (mrk->mfw > mrk->precision) ? mrk->mfw : mrk->precision;
+	head->len = (i > mrk->len_prefix) ? i : mrk->len_prefix;
+	head->txt = (char*)malloc(sizeof(char) * head->len);
+	if (!head->txt)
+		return ;
+	i = index - 1;
+	while (++i < mrk->precision)
+		head->txt[head->len - 1 - i] = '0';
+	while (i < head->len)
+		head->txt[head->len - 1 - i++] = 0;
 }

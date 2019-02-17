@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 17:03:41 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/14 19:30:27 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/17 19:01:44 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ size_t			handle_o(va_list ap, t_str *head, t_mrk *mrk)
 	if (mrk->hashtag)
 		mrk->len_prefix = 1;
 	handle_u_t(ap, head, mrk);
-	if (!head->txt)
+	if (!head->txt && head->len != 0)
 		return (0);
+	if (head->len == 0)
+		return (-1);
 	head->is_raw = 0;
 	if (mrk->len_prefix && (!mrk->zero || mrk->arg_precision))
 		add_prefix("0", head);

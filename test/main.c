@@ -64,10 +64,12 @@ int				main(void)
 	//en cas d'erreur, renvoyer -1
 	//
 	
-	ft_printf("%\n");
-	printf("%\n");
-
+	ft_printf("%#1.o %#1.0o\n", 0, 0);
+	printf("%#1.o %#1.0o\n", 0, 0);
 	return (0);
+
+
+	//a tester : les unsigned avec mfw et valeur 0 + ornement sont pas safe
 }
 //*/
 /*

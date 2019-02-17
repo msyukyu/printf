@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 17:01:34 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/16 21:59:09 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/17 19:03:59 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ size_t			handle_u(va_list ap, t_str *head, t_mrk *mrk)
 {
 	mrk->base = 10;
 	handle_u_t(ap, head, mrk);
-	if (!head->txt)
+	if (!head->txt && head->len != 0)
 		return (0);
+	if (head->len == 0)
+		return (-1);
 	head->is_raw = 0;
 	if (mrk->minus)
 		left_justify(' ', head, mrk);

@@ -6,13 +6,13 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 16:58:26 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/16 22:00:33 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/17 19:02:10 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void			handle_s_t(va_list ap, t_str *head, t_mrk *mrk)
+void			handle_d_t(va_list ap, t_str *head, t_mrk *mrk)
 {
 	if (mrk->len_modif)
 	{
@@ -45,20 +45,15 @@ void			handle_s_t(va_list ap, t_str *head, t_mrk *mrk)
 size_t			handle_d(va_list ap, t_str *head, t_mrk *mrk)
 {
 	mrk->base = 10;
-	handle_s_t(ap, head, mrk);
-	if (!head->txt)
+	handle_d_t(ap, head, mrk);
+	if (!head->txt && head->len != 0)
 		return (0);
+	if (head->len == 0)
+		return (-1);
 	head->is_raw = 0;
 	if (mrk->minus)
 		left_justify(' ', head, mrk);
 	else
-	{
-		/*
-		if (mrk->zero)
-			right_justify('0', head, mrk);
-		else
-		*/
-			right_justify(' ', head, mrk);
-	}
+		right_justify(' ', head, mrk);
 	return ((head->txt) ? head->len : 0);
 }
