@@ -22,7 +22,6 @@ int				main(void)
 	ft_printf("%Lf\n%Lf\n%Lf\n%Lf\n%Lf\n%Lf\n", d, e, f, g, h);
 	ft_printf("%f\n%f\n%f\n%f\n%f\n%f\n", 1.0, 2.0, -2.0, 3.0, 0.5, a);
 	*/
-	/*
 	long double aa = 0.6;
 	long double bb = 0.26;
 	long double cc = 0.126;
@@ -32,12 +31,11 @@ int				main(void)
 	long double gg = 65484.268768465;
 	long double hh = LDBL_MAX; 
 	ft_printf("%Lf\n%Lf\n%Lf\n%Lf\n%Lf\n", aa, bb, cc, dd, ee);
-	printf("%.100Lf\n%.100Lf\n%.100Lf\n%.100Lf\n%.100Lf\n", aa, bb, cc, dd, ee);
 	ft_printf("%.100Lf\n%.100Lf\n", ff, gg);
+	printf("%.100Lf\n%.100Lf\n%.100Lf\n%.100Lf\n%.100Lf\n", aa, bb, cc, dd, ee);
 	printf("%.100Lf\n%.100Lf\n", ff, gg);
-	ft_printf("%.10000Lf\n", hh);
-	printf("%.10000Lf\n", hh);
-	*/
+	//ft_printf("%.10000Lf\n", hh);
+	//printf("%.10000Lf\n", hh);
 
 	//printf("%.100f", 10.15);
 	
@@ -64,9 +62,6 @@ int				main(void)
 	//en cas d'erreur, renvoyer -1
 	//
 	
-	ft_printf("%#1.o %#1.0o\n", 0, 0);
-	printf("%#1.o %#1.0o\n", 0, 0);
-	return (0);
 
 
 	//a tester : les unsigned avec mfw et valeur 0 + ornement sont pas safe

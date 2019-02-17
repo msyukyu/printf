@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/20 16:32:38 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/17 21:15:52 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,18 +136,18 @@ unsigned char	decode_fraction(t_dbl *dbl, PFMNG *mng, PFMNG *shadow)
 
 	shadow->d_s->value = PFBASE >> 1;
 	left_offset = 0;
-	while (++left_offset < dbl->fraction.left_offset)
+	while (left_offset++ < dbl->fraction.left_offset)
 		shift_right(shadow);
 	active_bit = find_most_significant_bit(dbl->fraction.fraction);
 	while (dbl->fraction.fraction > 0 && active_bit)
 	{
-		shift_right(shadow);
 		if (dbl->fraction.fraction & active_bit)
 		{
 			add_shadow(mng, shadow);
 			dbl->fraction.fraction -= active_bit;
 		}
 		active_bit = active_bit >> 1;
+		shift_right(shadow);
 	}
 	return (1);
 }
@@ -168,10 +168,12 @@ PFMNG			*pf_boot(long double in)
 	}
 	mng->i_s->value = dbl->normalized;
 	decode_fraction(dbl, mng, shadow);
-	while ((dbl->exponent)-- > 0)
-		shift_left(mng);
-	while (++(dbl->exponent) < 0)
-		shift_right(mng);
+	if (dbl->exponent > 0)
+		while ((dbl->exponent)-- > 0)
+			shift_left(mng);
+	else
+		while ((dbl->exponent)++ < 0)
+			shift_right(mng);
 
 	PF				*yo;
 	yo = mng->i_e;
