@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:52:22 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/17 18:54:47 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/18 15:13:37 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void			re_int_tostr(intmax_t in, t_str *head, t_mrk *mrk, size_t index)
 		ornate_signed(head, mrk, index, sign);
 	}
 	else
-		int_tostr(in / (intmax_t)mrk->base, head, mrk, index + 1);
+		re_int_tostr(in / (intmax_t)mrk->base, head, mrk, index + 1);
 	head->txt[head->len - index - 1] = symb_lc(sign *
 			(in % (intmax_t)mrk->base));
 }

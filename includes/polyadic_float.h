@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:13:25 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/19 13:14:15 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/18 16:24:05 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define ULL unsigned long long
 # define PFBASE (unsigned long long)1000000000000000000
 # define PFMNG struct s_polyadic_float_manager
+# define PFPMNG struct s_pf_print_manager
 
 # include <stdlib.h>
 
@@ -52,6 +53,17 @@ typedef struct			s_polyadic_float_manager
 	PF					*d_s;
 	PF					*d_e;
 }						t_polyadic_float_manager;
+
+typedef struct			s_pf_print_manager
+{
+	unsigned char		prev_decimal;
+	size_t				index;
+	unsigned char		dot_index;
+	size_t				inc_index;
+	size_t				more_zeros;
+	PF					*cur;
+	ULL					value;
+}						t_pf_print_manager;
 
 unsigned char			*store_ldouble_bits(long double in);
 unsigned char			*store_double_bits(double in);

@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:19:17 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/17 19:29:25 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/18 15:13:52 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void			re_uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk,
 			head->txt[head->len - 1 - i++] = 0;
 	}
 	else
-		uint_tostr(in / mrk->base, head, mrk, index + 1);
+		re_uint_tostr(in / mrk->base, head, mrk, index + 1);
 	head->txt[head->len - index - 1] = (mrk->type == 'X') ?
 		symb_uc(in % mrk->base) : symb_lc(in % mrk->base);
 }
