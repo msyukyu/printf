@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/19 15:52:25 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/19 16:51:35 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,25 +226,60 @@ void			recover_zeros(PFPMNG *mng, int zeros)
 	}
 }
 
-ULL				generate_base(unsigned int zeros)
+ULL				generate_base(unsigned int rank)
 {
 	ULL			base;
 
 	base = 1;
-	while (zeros-- > 0)
+	while (--rank > 0)
 		base *= 10;
 	return (base);
 }
 
-void			find_out_zeros(PFMNG *in, t_mrk *mrk, PFPMNG *mng)
+void			round_pfloat(PFMNG *in, t_mrk *mrk, PFPMNG *mng, int keep)
 {
-	int				zeros;
-	int				rejected;
-	PF				*cur;
 	unsigned char	last_digit;
 	unsigned char	prev_digit;
 	unsigned char	prev_prev;
-	ULL				k;
+
+	while (keep <= 0)
+	{
+		keep += (int)mng->cur->size;
+		shift_rank_left(mng);
+	}
+	mng->cur->size = keep;
+	last_digit = (mng->cur->value /
+			generate_base(in->i_s->size - keep + 1)) % 10;
+	if (keep == in->i_s->size)
+		prev_digit = (mng->cur->right->value / (PFBASE / 10)) % 10;
+	else
+		prev_digit = (mng->cur->value /
+				generate_base(in->i_s->size - keep)) % 10;
+	if (prev_digit == 5)
+	{
+		//regarder le prochain digit significatif peu importe
+		//sa distance
+		if (prev_prev == 0)
+		{
+			if (last_digit % 2 == 0)
+				//truncate
+			else
+				//round up (add_inc)
+		}
+		else
+			//round up (add_inc sur mng->cur)
+	}
+	else if (prev_digit > 5)
+		//round up (add_inc)
+	else
+		//truncate
+}
+
+void			zeros_or_round(PFMNG *in, t_mrk *mrk, PFPMNG *mng)
+{
+	int				keep;
+	int				rejected;
+	PF				*cur;
 
 	ignore_zeros(mng);
 	rejected = mng->cur->size;
@@ -252,62 +287,18 @@ void			find_out_zeros(PFMNG *in, t_mrk *mrk, PFPMNG *mng)
 	while (cur != in->i_s)
 		rejected += in->i_s->size;
 	mrk->precision = (!mrk->arg_precision) ? 6 : mrk->precision;
-	zeros = (int)(mrk->precision) - rejected;
+	keep = (int)(mrk->precision) - rejected;
 	rejected = in->i_s->size - mng->cur->size;
-	if (zeros >= rejected)
+	if (keep >= rejected)
 	{
-		mng->more_zeros = zeros - rejected;
+		mng->more_zeros = keep - rejected;
 		mng->index = mng->more_zeros;
 		recover_zeros(mng, rejected);
 	}
-	else if (zeros >= 0)
-		recover_zeros(mng, zeros);
+	else if (keep >= 0)
+		recover_zeros(mng, keep);
 	else
-	{
-		if ((int)mng->cur->size + zeros > 0)
-		{
-			//digit courant dans ce bloc, digit precedent dans ce bloc
-		}
-		else if ((int)mng->cur->size + zeros == 0)
-		{
-			//digit courant dans le bloc de gauche, digit precedent dans ce bloc
-		}
-		else
-		{
-			while ((int)mng->cur->size + zeros <= 0)
-			{
-				zeros += (int)mng->cur->size;
-				shift_rank_left(mng);
-			}
-			mng->cur->size = zeros;
-			last_digit = (mng->cur->value /
-					generate_base(in->i_s->size - zeros)) % 10;
-			if (zeros == in->i_s->size)
-				//prev_digit a chercher dans le bloc de droite
-			else
-				prev_digit = (mng->cur->value /
-						generate_base(in->i_s->size - zeros - 1)) % 10;
-			if (prev_digit == 5)
-			{
-				//regarder le prochain digit significatif peu importe
-				//sa distance
-				if (prev_prev == 0)
-				{
-					if (last_digit % 2 == 0)
-						//truncate
-					else
-						//round up (add_inc)
-				}
-				else
-					//round up (add_inc sur mng->cur)
-			}
-			else if (prev_digit > 5)
-				//round up (add_inc)
-			else
-				//truncate
-		}
-		//cas ou on n'affiche pas toutes les decimales
-	}
+		round_pfloat(in, mrk, mng, keep);
 }
 
 void			float_tostr(PFMNG *in, t_str *head, t_mrk *mrk)
@@ -324,7 +315,7 @@ void			float_tostr(PFMNG *in, t_str *head, t_mrk *mrk)
 	if (mng.cur == in->i_s)
 		mng.dot_index = (mrk->hashtag) ? 1 : 2;
 	if (!mng.dot_index)
-		find_out_zeros(in, mrk, &mng);
+		zeros_or_round(in, mrk, &mng);
 		//gerer la precision (ajouter masse zero, ou oublier certains digits)
 		//calculer le nombre de digits a ajouter (peut etre inferieur a 18)
 		//pour le premier bloc (mng.inc_index) -> mng.more_zeros
