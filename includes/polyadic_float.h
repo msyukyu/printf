@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:13:25 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/18 16:24:05 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/19 15:03:27 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct			s_polyadic_float
 	PF					*left;
 	int					index;
 	PFMNG				*manager;
+	unsigned char		size;
 }						t_polyadic_float;
 
 typedef struct			s_polyadic_float_manager
@@ -56,10 +57,8 @@ typedef struct			s_polyadic_float_manager
 
 typedef struct			s_pf_print_manager
 {
-	unsigned char		prev_decimal;
 	size_t				index;
 	unsigned char		dot_index;
-	size_t				inc_index;
 	size_t				more_zeros;
 	PF					*cur;
 	ULL					value;

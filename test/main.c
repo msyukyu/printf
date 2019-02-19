@@ -63,9 +63,20 @@ int				main(void)
 	//en cas d'erreur, renvoyer -1
 	//
 	
-	ft_printf("%.0p, %.0p\n", 0, 0);
-	printf("%.0p, %.0p\n", 0, 0);
+	double a = 0.15;
+	double c = 0.85;
+	double d = 0.55;
+	double b = 0.45;
 
+	printf ("%.1f\n",a);
+	printf ("%.1f\n",c);
+	printf ("%.1f\n",d);
+	printf ("%.1f\n",b);
+
+	double e = 0.25;
+	printf("%.1f\n", e);
+	double f = 0.75;
+	printf("%.1f\n", f);
 
 	//a tester : les unsigned avec mfw et valeur 0 + ornement sont pas safe
 }

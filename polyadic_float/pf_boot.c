@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/18 16:59:26 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/19 15:52:25 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,16 +194,9 @@ void			main_recursion(PFMNG *in, t_str *head, t_mrk *mrk, PFPMNG mng)
 	}
 	else
 	{
-		mng.index += mng.inc_index;
+		mng.index += (mng.cur == in->i_s && !mng.dot_index) ? 1 : mng.cur->size;
 		if (mng.cur == in->i_s)
-		{
-			if (!mng.dot_index && (mng.inc_index = 1))
-				mng.dot_index = 1;
-			else if ((mng.inc_index = 18))
-				mng.dot_index = 2;
-		}
-		else if (mng.inc_index != 18)
-			mng.inc_index = 18;
+			mng.dot_index = (!mng.dot_index) ? 1 : 2;
 		shift_rank_left(&mng);
 		main_recursion(in, head, mrk, mng);
 	}
@@ -215,42 +208,103 @@ void			main_recursion(PFMNG *in, t_str *head, t_mrk *mrk, PFPMNG mng)
 		integer_tostr(in, head, mrk, mng);
 }
 
-void			find_out_zeros(PFMNG *in, t_mrk *mrk, PFPMNG *mng)
+void			ignore_zeros(PFPMNG *mng)
 {
-	int			rejected;
-	int			decimals;
-	int			zeros;
-	PF			*cur;
-
-	rejected = 0;
 	while (!(mng->value % 10))
 	{
-		++rejected;
-		mng->value = mng->value / 10;
+		mng->cur->size--;
+		mng->value /= 10;
 	}
-	decimals = 18 - rejected;
+}
+
+void			recover_zeros(PFPMNG *mng, int zeros)
+{
+	while (mng->cur->size < mng->cur->size + zeros)
+	{
+		mng->value *= 10;
+		mng->cur->size++;
+	}
+}
+
+ULL				generate_base(unsigned int zeros)
+{
+	ULL			base;
+
+	base = 1;
+	while (zeros-- > 0)
+		base *= 10;
+	return (base);
+}
+
+void			find_out_zeros(PFMNG *in, t_mrk *mrk, PFPMNG *mng)
+{
+	int				zeros;
+	int				rejected;
+	PF				*cur;
+	unsigned char	last_digit;
+	unsigned char	prev_digit;
+	unsigned char	prev_prev;
+	ULL				k;
+
+	ignore_zeros(mng);
+	rejected = mng->cur->size;
 	cur = mng->cur->left;
 	while (cur != in->i_s)
-		decimals += 18;
+		rejected += in->i_s->size;
 	mrk->precision = (!mrk->arg_precision) ? 6 : mrk->precision;
-	zeros = decimals - (int)(mrk->precision);
+	zeros = (int)(mrk->precision) - rejected;
+	rejected = in->i_s->size - mng->cur->size;
 	if (zeros >= rejected)
 	{
 		mng->more_zeros = zeros - rejected;
 		mng->index = mng->more_zeros;
-		mng->inc_index = 18;
+		recover_zeros(mng, rejected);
 	}
 	else if (zeros >= 0)
-		mng->inc_index = 18 - rejected + zeros;
+		recover_zeros(mng, zeros);
 	else
 	{
-		decimals += zeros;
-		if (decimals >= 0)
-			//recuperer le digit precedent dans ce bloc ci, si == 0, passer au
-			//bloc suivant
-		while (decimals < 0)
+		if ((int)mng->cur->size + zeros > 0)
 		{
-			
+			//digit courant dans ce bloc, digit precedent dans ce bloc
+		}
+		else if ((int)mng->cur->size + zeros == 0)
+		{
+			//digit courant dans le bloc de gauche, digit precedent dans ce bloc
+		}
+		else
+		{
+			while ((int)mng->cur->size + zeros <= 0)
+			{
+				zeros += (int)mng->cur->size;
+				shift_rank_left(mng);
+			}
+			mng->cur->size = zeros;
+			last_digit = (mng->cur->value /
+					generate_base(in->i_s->size - zeros)) % 10;
+			if (zeros == in->i_s->size)
+				//prev_digit a chercher dans le bloc de droite
+			else
+				prev_digit = (mng->cur->value /
+						generate_base(in->i_s->size - zeros - 1)) % 10;
+			if (prev_digit == 5)
+			{
+				//regarder le prochain digit significatif peu importe
+				//sa distance
+				if (prev_prev == 0)
+				{
+					if (last_digit % 2 == 0)
+						//truncate
+					else
+						//round up (add_inc)
+				}
+				else
+					//round up (add_inc sur mng->cur)
+			}
+			else if (prev_digit > 5)
+				//round up (add_inc)
+			else
+				//truncate
 		}
 		//cas ou on n'affiche pas toutes les decimales
 	}
@@ -260,7 +314,6 @@ void			float_tostr(PFMNG *in, t_str *head, t_mrk *mrk)
 {
 	PFPMNG			mng;
 
-	mng.prev_decimal = 10;
 	mng.index = 0;
 	mng.dot_index = 0;
 	mng.cur = in->d_e;

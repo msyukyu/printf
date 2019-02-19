@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 17:51:44 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/19 13:16:45 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/19 12:41:26 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,12 @@ PF				*init_pf(ULL value, PF *left, PF *right)
 	if (!pf)
 		return (NULL);
 	pf->value = value;
-	pf->inc = 0;
 	pf->right = right;
 	pf->index = 0;
+	pf->inc = PFBASE;
+	pf->size = 0;
+	while ((pf->inc /= 10) > 0)
+		pf->size++;
 	if (right)
 	{
 		pf->index = right->index + 1;
