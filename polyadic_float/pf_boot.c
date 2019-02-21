@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/21 13:06:51 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/21 14:29:21 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,10 +208,15 @@ void			ignore_zeros(PFPMNG *mng)
 	}
 }
 
-unsigned char	d_rank_right(unsigned char d_rank, unsigned char size)
+unsigned char	d_rank_right(PF **cur, unsigned char d_rank,
+		unsigned char rank_size)
 {
-	d_rank = (d_rank == 1) ? size : d_rank - 1;
-	return (d_rank);
+	if (d_rank == 1)
+	{
+		*cur = (*cur)->right;
+		return (rank_size);
+	}
+	return (d_rank - 1);
 }
 
 ULL				generate_base(unsigned char d_rank)
@@ -224,51 +229,54 @@ ULL				generate_base(unsigned char d_rank)
 	return (base);
 }
 
-unsigned char	find_digit(PF *cur, unsigned char d_rank)
+unsigned char	extract_digit(ULL value, unsigned char d_rank)
 {
-	
+	return ((value / generate_base(d_rank)) % 10);
 }
 
-void			round_pfloat(PFMNG *in, t_mrk *mrk, PFPMNG *mng, int keep)
+unsigned char	find_nonzero_digit(PF *cur, unsigned char d_rank,
+		unsigned char rank_size)
+{
+	unsigned char	s_rank;
+	unsigned char	prev_prev;
+
+	s_rank = d_rank_right(&cur, d_rank, rank_size);
+	prev_prev = extract_digit(cur->value, s_rank);
+	if (cur == NULL)
+		return (0);
+	else if (prev_prev == 0)
+		return (find_nonzero_digit(cur, s_rank, rank_size));
+	else
+		return (prev_prev);
+}
+
+void			round_up(PFMNG *in, PFPMNG *mng, unsigned char d_rank)
+{
+	mng->cur->inc = generate_base(d_rank);
+	add_inc(mng->cur, in);
+}
+
+void			round_pfloat(PFMNG *in, PFPMNG *mng, int keep)
 {
 	unsigned char	last_digit;
 	unsigned char	prev_digit;
-	unsigned char	prev_prev;
 	unsigned char	d_rank;
 	PF				*cur;
 
 	while (keep <= 0)
 	{
 		keep += (int)mng->cur->size;
-		shift_rank_left(mng);
+		mng->cur = mng->cur->left;
 	}
 	mng->cur->size = keep;
 	d_rank = in->i_s->size - keep + 1;
 	cur = mng->cur;
-	last_digit = (mng->cur->value / generate_base(d_rank)) % 10;
-	if (keep == in->i_s->size)
-		prev_digit = (mng->cur->right->value / (PFBASE / 10)) % 10;
-	else
-		prev_digit = (mng->cur->value /
-				generate_base(in->i_s->size - keep)) % 10;
-	if (prev_digit == 5)
-	{
-		//regarder le prochain digit significatif peu importe
-		//sa distance
-		if (prev_prev == 0)
-		{
-			if (last_digit % 2 == 0)
-				//truncate
-			else
-				//round up (add_inc)
-		}
-		else
-			//round up (add_inc sur mng->cur)
-	}
-	else if (prev_digit > 5)
-		//round up (add_inc)
-	else
-		//truncate
+	last_digit = extract_digit(cur->value, d_rank);
+	d_rank = d_rank_right(&cur, d_rank, in->i_s->size);
+	prev_digit = extract_digit(cur->value, d_rank);
+	if (prev_digit > 5 || (prev_digit == 5 && (last_digit % 2 != 0 ||
+		find_nonzero_digit(cur, d_rank, in->i_s->size) != 0)))
+		round_up(in, mng, in->i_s->size - keep + 1);
 }
 
 void			zeros_or_round(PFMNG *in, t_mrk *mrk, PFPMNG *mng)
@@ -294,10 +302,7 @@ void			zeros_or_round(PFMNG *in, t_mrk *mrk, PFPMNG *mng)
 	else if (keep >= 0)
 		mng->cur->size += keep;
 	else
-	{
-		mng->cur->size += rejected; // attention ici pas bon
-		round_pfloat(in, mrk, mng, keep);
-	}
+		round_pfloat(in, mng, keep);
 }
 
 void			float_tostr(PFMNG *in, t_str *head, t_mrk *mrk)
@@ -309,7 +314,7 @@ void			float_tostr(PFMNG *in, t_str *head, t_mrk *mrk)
 	mng.cur = in->d_e;
 	mng.more_zeros = 0;
 	while (mng.cur->value == 0 && mng.cur != in->i_s)
-		shift_rank_left(&mng);
+		mng.cur = mng.cur->left;
 	if (mng.cur == in->i_s)
 		mng.dot_index = (mrk->hashtag) ? 1 : 2;
 	if (!mng.dot_index)
