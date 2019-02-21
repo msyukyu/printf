@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/19 17:00:00 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/21 13:06:51 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,18 +152,6 @@ unsigned char	decode_fraction(t_dbl *dbl, PFMNG *mng, PFMNG *shadow)
 	return (1);
 }
 
-void			shift_rank_left(PFPMNG *mng)
-{
-	mng->cur = mng->cur->left;
-	mng->value = mng->cur->value;
-}
-
-void			shift_rank_right(PFPMNG *mng)
-{
-	mng->cur = mng->cur->right;
-	mng->value = mng->cur->value;
-}
-
 void			add_dot(t_str *head, PFPMNG mng)
 {
 	head->txt[head->len - mng.index - 1] = '.';
@@ -197,7 +185,7 @@ void			main_recursion(PFMNG *in, t_str *head, t_mrk *mrk, PFPMNG mng)
 		mng.index += (mng.cur == in->i_s && !mng.dot_index) ? 1 : mng.cur->size;
 		if (mng.cur == in->i_s)
 			mng.dot_index = (!mng.dot_index) ? 1 : 2;
-		shift_rank_left(&mng);
+		mng.cur = mng.cur->left;
 		main_recursion(in, head, mrk, mng);
 	}
 	if (!mng.dot_index)
@@ -210,30 +198,35 @@ void			main_recursion(PFMNG *in, t_str *head, t_mrk *mrk, PFPMNG mng)
 
 void			ignore_zeros(PFPMNG *mng)
 {
-	while (!(mng->value % 10))
+	ULL		tmp;
+
+	tmp = mng->cur->value;
+	while (!(tmp % 10))
 	{
 		mng->cur->size--;
-		mng->value /= 10;
+		tmp /= 10;
 	}
 }
 
-void			recover_zeros(PFPMNG *mng, int zeros)
+unsigned char	d_rank_right(unsigned char d_rank, unsigned char size)
 {
-	while (mng->cur->size < mng->cur->size + zeros)
-	{
-		mng->value *= 10;
-		mng->cur->size++;
-	}
+	d_rank = (d_rank == 1) ? size : d_rank - 1;
+	return (d_rank);
 }
 
-ULL				generate_base(unsigned int rank)
+ULL				generate_base(unsigned char d_rank)
 {
 	ULL			base;
 
 	base = 1;
-	while (--rank > 0)
+	while (--d_rank > 0)
 		base *= 10;
 	return (base);
+}
+
+unsigned char	find_digit(PF *cur, unsigned char d_rank)
+{
+	
 }
 
 void			round_pfloat(PFMNG *in, t_mrk *mrk, PFPMNG *mng, int keep)
@@ -241,6 +234,8 @@ void			round_pfloat(PFMNG *in, t_mrk *mrk, PFPMNG *mng, int keep)
 	unsigned char	last_digit;
 	unsigned char	prev_digit;
 	unsigned char	prev_prev;
+	unsigned char	d_rank;
+	PF				*cur;
 
 	while (keep <= 0)
 	{
@@ -248,8 +243,9 @@ void			round_pfloat(PFMNG *in, t_mrk *mrk, PFPMNG *mng, int keep)
 		shift_rank_left(mng);
 	}
 	mng->cur->size = keep;
-	last_digit = (mng->cur->value /
-			generate_base(in->i_s->size - keep + 1)) % 10;
+	d_rank = in->i_s->size - keep + 1;
+	cur = mng->cur;
+	last_digit = (mng->cur->value / generate_base(d_rank)) % 10;
 	if (keep == in->i_s->size)
 		prev_digit = (mng->cur->right->value / (PFBASE / 10)) % 10;
 	else
@@ -293,12 +289,15 @@ void			zeros_or_round(PFMNG *in, t_mrk *mrk, PFPMNG *mng)
 	{
 		mng->more_zeros = keep - rejected;
 		mng->index = mng->more_zeros;
-		recover_zeros(mng, rejected);
+		mng->cur->size += rejected;
 	}
 	else if (keep >= 0)
-		recover_zeros(mng, keep);
+		mng->cur->size += keep;
 	else
+	{
+		mng->cur->size += rejected; // attention ici pas bon
 		round_pfloat(in, mrk, mng, keep);
+	}
 }
 
 void			float_tostr(PFMNG *in, t_str *head, t_mrk *mrk)
@@ -308,7 +307,6 @@ void			float_tostr(PFMNG *in, t_str *head, t_mrk *mrk)
 	mng.index = 0;
 	mng.dot_index = 0;
 	mng.cur = in->d_e;
-	mng.value = mng.cur->value;
 	mng.more_zeros = 0;
 	while (mng.cur->value == 0 && mng.cur != in->i_s)
 		shift_rank_left(&mng);

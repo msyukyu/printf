@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:13:25 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/19 15:03:27 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/21 13:00:28 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct			s_pf_print_manager
 	unsigned char		dot_index;
 	size_t				more_zeros;
 	PF					*cur;
-	ULL					value;
 }						t_pf_print_manager;
 
 unsigned char			*store_ldouble_bits(long double in);
