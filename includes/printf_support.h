@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:17:23 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/17 16:56:11 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/21 17:14:28 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void					uchar_tostr(unsigned char in, t_str *head, t_mrk *mrk);
 void					ustr_tostr(char *in, t_str *head, t_mrk *mrk);
 //void					ldouble_tostr(long double in, t_str *head, t_mrk *mrk);
 //void					double_tostr(double in, t_str *head, t_mrk *mrk);
+void					float_tostr(PFMNG *in, t_str *head, t_mrk *mrk);
 
 void					double_bits_tostr(double in, t_str *head);
 void					ldouble_bits_tostr(long double in, t_str *head);

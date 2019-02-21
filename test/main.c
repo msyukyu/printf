@@ -83,7 +83,10 @@ int				main(void)
 
 	*/
 
-	printf("%+010.5f\n", 15.254668);
+	long double a = 15.254668;
+	printf("%+010.5Lf\n", a);
+	ft_printf("%+010.5Lf\n", a);
+
 
 	//a tester : les unsigned avec mfw et valeur 0 + ornement sont pas safe
 }
