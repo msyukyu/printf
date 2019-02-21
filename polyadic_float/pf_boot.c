@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/21 14:29:21 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/21 16:49:42 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,20 +157,62 @@ void			add_dot(t_str *head, PFPMNG mng)
 	head->txt[head->len - mng.index - 1] = '.';
 }
 
-void			decimal_tostr(PFMNG *in, t_str *head, t_mrk *mrk, PFPMNG mng)
+void			rank_tostr(t_str *head, t_mrk *mrk, PFPMNG mng,
+		unsigned char rank_size)
 {
-	
+	size_t		index;
+
+	index = -1;
+	while (++index < rank_size - mng.cur->size)
+		mng.cur->value /= (ULL)mrk->base;
+	index = -1;
+	while (++index < mng.cur->size)
+	{
+		if (mng.cur->value == 0)
+			head->txt[head->len - (mng.index + index) - 1] = '0';
+		else
+		{
+			head->txt[head->len - (mng.index + index) - 1] =
+				symb_lc(mng.cur->value % (ULL)mrk->base);
+			mng.cur->value /= (ULL)mrk->base;
+		}
+	}
 }
 
-void			integer_tostr(PFMNG *in, t_str *head, t_mrk *mrk, PFPMNG mng)
+void			ornate_pfloat(t_str *head, t_mrk *mrk, size_t i, char sign)
 {
-
+	
 }
 
 void			malloc_float_str(PFMNG *in, t_str *head, t_mrk *mrk,
 		PFPMNG mng)
 {
-	
+	ULL				value;
+	char			this_digit;
+	unsigned char	prefix;
+
+	value = mng.cur->value;
+	if (mng.cur->value < (ULL)mrk->base)
+	{
+		this_digit = (mng.cur->value == 0 && mng.cur != in->i_s) ? -1 : 0;
+		prefix = (in->sign == -1 || mrk->plus || mrk->blank) ? 1 : 0;
+		head->len = (mrk->mfw > prefix + mng.index + this_digit) ? mrk->mfw :
+			prefix + mng.index + this_digit;
+		head->txt = (char*)malloc(sizeof(char) * head->len);
+		if (!head->txt)
+			return ;
+		ornate_pfloat(head, mrk, mng.index + this_digit, in->sign);
+		if (this_digit)
+			return ;
+	}
+	else
+	{
+		mng.cur->value /= (ULL)mrk->base;
+		mng.index++;
+		malloc_float_str(in, head, mrk, mng);
+	}
+	head->txt[head->len - mng.index - 1] =
+		symb_lc(value % (ULL)mrk->base);
 }
 
 void			main_recursion(PFMNG *in, t_str *head, t_mrk *mrk, PFPMNG mng)
@@ -188,12 +230,10 @@ void			main_recursion(PFMNG *in, t_str *head, t_mrk *mrk, PFPMNG mng)
 		mng.cur = mng.cur->left;
 		main_recursion(in, head, mrk, mng);
 	}
-	if (!mng.dot_index)
-		decimal_tostr(in, head, mrk, mng);
-	else if (mng.dot_index == 1)
+	if (mng.dot_index == 1)
 		add_dot(head, mng);
 	else
-		integer_tostr(in, head, mrk, mng);
+		rank_tostr(head, mrk, mng, in->i_s->size);
 }
 
 void			ignore_zeros(PFPMNG *mng)
@@ -347,6 +387,8 @@ PFMNG			*pf_boot(long double in)
 	else
 		while ((dbl->exponent)++ < 0)
 			shift_right(mng);
+	free(dbl);
+	clean_pfmng(shadow);
 	/*
 	PF				*yo;
 	yo = mng->i_e;
