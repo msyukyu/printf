@@ -232,7 +232,7 @@ void			main_recursion(PFMNG *in, t_str *head, t_mrk *mrk, PFPMNG mng)
 	size_t		index;
 
 	if ((mng.cur == in->i_e || (mng.cur->left == in->i_e &&
-				in->i_e->value == 0 && in->i_e != in->i_s)))
+				in->i_e->value == 0 && in->i_e != in->i_s)) && mng.dot_index != 0)
 	{
 		malloc_float_str(in, head, mrk, mng);
 		return ; // pas oublier de compter les index ici
@@ -243,10 +243,12 @@ void			main_recursion(PFMNG *in, t_str *head, t_mrk *mrk, PFPMNG mng)
 		mng.index += (mng.cur == in->i_s && !mng.dot_index) ? 1 : mng.cur->size;
 		if (mng.cur == in->i_s)
 			mng.dot_index = (!mng.dot_index) ? 1 : 2;
-		mng.cur = mng.cur->left;
+		if (mng.dot_index != 1)
+			mng.cur = mng.cur->left;
 		main_recursion(in, head, mrk, mng);
 		mng.index = index;
-		mng.cur = mng.cur->right;
+		if (mng.dot_index != 1)
+			mng.cur = mng.cur->right;
 	}
 	if (mng.dot_index == 1)
 		add_dot(head, mng);
