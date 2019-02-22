@@ -84,7 +84,7 @@ int				main(void)
 	*/
 
 	long double a = 15.254668;
-	printf("%+010.5Lf\n", a);
+	//printf("%+010.5Lf\n", a);
 	ft_printf("%+010.5Lf\n", a);
 
 
