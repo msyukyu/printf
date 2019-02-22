@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/21 22:55:09 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/22 13:21:49 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void			rank_tostr(t_str *head, t_mrk *mrk, PFPMNG mng,
 	while (++index < rank_size - mng.cur->size)
 		mng.cur->value /= (ULL)mrk->base;
 	index = -1;
-	while (++index < mng.cur->size)// && mng.index + index < head->len)// a supprimer ?
+	while (++index < mng.cur->size)
 	{
 		if (mng.cur->value == 0)
 			head->txt[head->len - (mng.index + index) - 1] = '0';
@@ -185,7 +185,7 @@ void			ornate_pfloat(t_str *head, t_mrk *mrk, PFPMNG mng, char sign)
 	size_t		precision;
 
 	i = mng.index;
-	precision = head->len - ((sign == -1 || mrk->plus || mrk->blank) ? 2 : 1);
+	precision = head->len - ((sign == -1 || mrk->plus || mrk->blank) ? 1 : 0);
 	while (++i < precision && mrk->zero)
 		head->txt[head->len - i - 1] = '0';
 	if (sign == -1)
@@ -232,7 +232,7 @@ void			main_recursion(PFMNG *in, t_str *head, t_mrk *mrk, PFPMNG mng)
 	size_t		index;
 
 	if ((mng.cur == in->i_e || (mng.cur->left == in->i_e &&
-				in->i_e->value == 0 && in->i_e != in->i_s)) && mng.dot_index != 0)
+		in->i_e->value == 0 && in->i_e != in->i_s)) && mng.dot_index != 0)
 	{
 		malloc_float_str(in, head, mrk, mng);
 		return ; // pas oublier de compter les index ici
