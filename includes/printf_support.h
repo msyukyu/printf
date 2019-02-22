@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:17:23 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/21 17:14:28 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/22 18:56:25 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void					right_justify(char filler, t_str *head, t_mrk *mrk);
 void					char_left_justify(char filler, t_str *head);
 void					char_right_justify(char filler, t_str *head);
 void					add_prefix(char *prefix, t_str *head);
+char					next_digit(t_str *head);
 void					force_prefix(char *prefix, t_str *head);
 void					appleft_prefix(char *prefix, t_str *head,
 							size_t len_prefix, char ignore);

@@ -88,13 +88,11 @@ int				main(void)
 	ft_printf("%+010.5Lf\n", a);
 	*/
 
-	/*
-	ft_printf("!%#22.2hho!\n", (unsigned char)6691642920);
-	printf("!%#22.2hho!", (unsigned char)669164292);
+	ft_printf("!%#22.2o!\n", (unsigned char)6691642920);
+	printf("!%#22.2o!", (unsigned char)669164292);
 	//printf("%0 .2i\n", 0);
-	*/
 	
-
+/*
 	printf("%#+-10.25f\n", 684684656898498451651053.54668498461354684686846884);
 
 	ft_printf("%#+-10.25f\n", 684684656898498451651053.54668498461354684686846884);
@@ -106,6 +104,7 @@ int				main(void)
 
 	ft_printf("%10.f\n", 2.0);
 	printf("%10.f\n", 2.0);
+	*/
 
 
 
