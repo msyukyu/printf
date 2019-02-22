@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/22 14:30:26 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/22 17:35:44 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -380,7 +380,12 @@ void			float_tostr(PFMNG *in, t_str *head, t_mrk *mrk)
 	while (mng.cur->value == 0 && mng.cur != in->i_s)
 		mng.cur = mng.cur->left;
 	if (mng.cur == in->i_s)
-		mng.dot_index = (mrk->hashtag) ? 1 : 2;
+	{
+		if (mrk->hashtag)
+			mng.cur = mng.cur->right;
+		else
+			mng.dot_index = 2;
+	}
 	if (!mng.dot_index)
 		zeros_or_round(in, mrk, &mng);
 		//gerer la precision (ajouter masse zero, ou oublier certains digits)
