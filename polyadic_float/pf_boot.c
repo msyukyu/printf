@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/22 18:03:01 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/22 18:43:54 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,9 @@ void			ornate_pfloat(t_str *head, t_mrk *mrk, PFPMNG mng, char sign)
 		head->txt[head->len - 1 - i++] = ' ';
 	while (i < head->len)
 		head->txt[head->len - 1 - i++] = 0;
+	i = head->len - mng.more_zeros - 1;
+	while (++i < head->len)
+		head->txt[i] = '0';
 }
 
 void			malloc_float_str(PFMNG *in, t_str *head, t_mrk *mrk,
@@ -383,6 +386,15 @@ void			float_tostr(PFMNG *in, t_str *head, t_mrk *mrk)
 		mng.dot_index = (mrk->hashtag) ? 1 : 2;
 	if (!mng.dot_index)
 		zeros_or_round(in, mrk, &mng);
+	if (mng.dot_index)
+	{
+		mng.dot_index = 0;
+		mrk->precision = (!mrk->arg_precision) ? 6 : mrk->precision;
+		if (!mrk->hashtag && mrk->precision == 0)
+			mng.dot_index = 1;
+		mng.index += mrk->precision;
+		mng.more_zeros = mrk->precision;
+	}
 		//gerer la precision (ajouter masse zero, ou oublier certains digits)
 		//calculer le nombre de digits a ajouter (peut etre inferieur a 18)
 		//pour le premier bloc (mng.inc_index) -> mng.more_zeros
