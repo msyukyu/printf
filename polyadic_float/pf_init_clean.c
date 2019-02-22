@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 17:51:44 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/19 12:41:26 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/22 13:46:31 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void			clean_pfmng(PFMNG *mng)
 	{
 		free(prev);
 		prev = cur;
-		cur = prev->left;
+		if (prev)
+			cur = prev->left;
 	}
 	free(mng);
 }

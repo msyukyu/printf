@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/22 13:21:49 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/22 13:42:37 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -412,8 +412,8 @@ PFMNG			*pf_boot(long double in)
 		while ((dbl->exponent)++ < 0)
 			shift_right(mng);
 	free(dbl);
-	//clean_pfmng(shadow);
-	
+	clean_pfmng(shadow);
+/*	
 	PF				*yo;
 	yo = mng->i_e;
 	while (yo)
@@ -422,6 +422,6 @@ PFMNG			*pf_boot(long double in)
 		yo = yo->right;
 	}
 	printf("\n");
-	
+*/	
 	return (mng);
 }
