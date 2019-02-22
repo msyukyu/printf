@@ -82,12 +82,21 @@ int				main(void)
 	printf("%.1f\n", f);
 
 	*/
-
+	/*
 	long double a = 15.254668;
-	//printf("%+010.5Lf\n", a);
+	printf("%+010.5Lf\n", a);
 	ft_printf("%+010.5Lf\n", a);
+	*/
 
+	/*
+	ft_printf("!%#22.2hho!\n", (unsigned char)6691642920);
+	printf("!%#22.2hho!", (unsigned char)669164292);
+	//printf("%0 .2i\n", 0);
+	*/
+	
 
+	ft_printf("%#+-10.25000f\n", 684684656898498451651053.54668498461354684686846884);
+	printf("%#+-10.25000f\n", 684684656898498451651053.54668498461354684686846884);
 	//a tester : les unsigned avec mfw et valeur 0 + ornement sont pas safe
 }
 //*/

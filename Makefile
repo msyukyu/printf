@@ -6,7 +6,7 @@
 #    By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/04 12:40:14 by dabeloos          #+#    #+#              #
-#    Updated: 2019/01/15 17:13:07 by dabeloos         ###   ########.fr        #
+#    Updated: 2019/02/22 15:06:11 by dabeloos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,10 +48,14 @@ CONVERS_F	= char_conversion.o \
 			  str_conversion.o \
 			  unsigned_conversion.o
 
+POLYADIC_F	= pf_boot.o \
+			  pf_init_clean.o
+
 O_F			= $(addprefix ./main/, $(MAIN_F)) \
 			  $(addprefix ./handlers/, $(HANDLERS_F)) \
 			  $(addprefix ./floats/, $(FLOATS_F)) \
-			  $(addprefix ./conversions/, $(CONVERS_F))
+			  $(addprefix ./conversions/, $(CONVERS_F)) \
+			  $(addprefix ./polyadic_float/, $(POLYADIC_F))
 
 END_E		= \033[00m
 RED_E		= \033[01;31m
