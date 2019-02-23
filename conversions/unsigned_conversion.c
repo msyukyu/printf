@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:19:17 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/22 15:54:52 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/23 19:22:34 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void			re_uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk,
 		if (in == 0 && index == 0 && mrk->type != 'p')
 			mrk->len_prefix = 0;
 		i = (mrk->mfw > mrk->precision) ? mrk->mfw : mrk->precision;
+		if (mrk->hashtag && (mrk->type == 'x' || mrk->type == 'X') &&
+				!(index == 0 && in == 0))
+			i += 2;
 		head->len = (i > index + 1 + mrk->len_prefix) ? i : index + 1 +
 			mrk->len_prefix;
 		head->txt = (char*)malloc(sizeof(char) * head->len);
