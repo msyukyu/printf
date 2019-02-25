@@ -6,12 +6,12 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:17:23 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 12:28:14 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 12:36:00 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_SUPPORT_H
-# define PRINTF_SUPPORT_H
+#ifndef FT_PRINTF_SUPPORT_H
+# define FT_PRINTF_SUPPORT_H
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
