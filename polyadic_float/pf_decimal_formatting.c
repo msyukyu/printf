@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 11:03:50 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 11:35:58 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 11:49:22 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ unsigned char	zeros_or_round(PFMNG *in, t_mrk *mrk, PFPMNG *mng)
 
 	ignore_zeros(mng);
 	rejected = mng->cur->size;
+	cur = mng->cur;
 	while ((cur = cur->left) != in->i_s)
 		rejected += in->i_s->size;
 	mrk->precision = (!mrk->arg_precision) ? 6 : mrk->precision;
