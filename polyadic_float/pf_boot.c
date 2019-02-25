@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 08:32:44 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 08:48:35 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -385,6 +385,8 @@ void			float_tostr(PFMNG *in, t_str *head, t_mrk *mrk)
 		mng.dot_index = (mrk->hashtag) ? 1 : 2;
 	if (!mng.dot_index)
 		zeros_or_round(in, mrk, &mng);
+	if (mng.cur == in->i_s)
+		mng.dot_index = (mrk->hashtag) ? 1 : 2;
 	if (mng.dot_index)
 	{
 		mng.dot_index = 0;
