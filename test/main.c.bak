@@ -1,6 +1,7 @@
 #include "printf.h"
 #include "limits.h"
 #include "float.h"
+#include <stdio.h>
 ///*
 int				main(void)
 {
@@ -135,11 +136,15 @@ int				main(void)
 	ft_printf("%#-.37f\n", 13.084827881759911960557474230881780386042);
 	printf("%#-.37f\n", 13.084827881759911960557474230881780386042);
 	*/
+	/*
 	ft_printf("%hhf\n", (double)13.618464651);
 	ft_printf("%hf\n", (long double)13.618464651);
 
 	printf("%hhf\n", (double)13.618464651);
 	printf("%hf\n", (long double)13.618464651);
+	*/
+	ft_printf("%#-08X\n", 42);
+	printf("%#-08X\n", 42);
 	/*
 	ft_printf("%.f\n", 10.5);
 	ft_printf("%.f\n", 11.5);
