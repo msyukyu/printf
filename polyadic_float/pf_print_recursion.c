@@ -6,11 +6,11 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 10:53:47 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 10:57:58 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 12:32:35 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 void			add_dot(t_str *head, PFPMNG mng)
 {

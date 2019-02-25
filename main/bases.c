@@ -6,11 +6,11 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 15:22:29 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 10:31:56 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 12:29:47 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 char			symb_lc(size_t index)
 {

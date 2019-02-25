@@ -6,11 +6,11 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 10:38:12 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 10:38:58 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 12:31:27 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 void			left_justify(char filler, t_str *head, t_mrk *mrk)
 {

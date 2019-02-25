@@ -6,11 +6,11 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 11:24:20 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 11:31:21 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 12:32:04 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 void			fill_head(char *src, t_str *head)
 {

@@ -6,11 +6,11 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 19:58:25 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/14 20:50:25 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 12:30:01 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 t_str			*init_str(t_str *s)
 {

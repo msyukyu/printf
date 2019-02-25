@@ -6,11 +6,11 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 11:05:45 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 11:09:34 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 12:31:57 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 void			ignore_zeros(PFPMNG *mng)
 {

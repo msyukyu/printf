@@ -6,11 +6,11 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 11:21:06 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 11:21:51 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 12:22:46 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 void			float_tostr(PFMNG *in, t_str *head, t_mrk *mrk)
 {
