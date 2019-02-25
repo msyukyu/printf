@@ -6,7 +6,7 @@
 #    By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/04 12:40:14 by dabeloos          #+#    #+#              #
-#    Updated: 2019/02/25 11:26:57 by dabeloos         ###   ########.fr        #
+#    Updated: 2019/02/25 11:48:12 by dabeloos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,9 +51,9 @@ CONVERS_F	= char_conversion.o \
 			  unsigned_conversion.o
 
 POLYADIC_F	= pf_boot.o \
-			  pf_init_clean.o \
 			  pf_extrema.o \
 			  pf_decimal_formatting.o \
+			  pf_operations.o \
 			  pf_manager.o \
 			  pf_decimal_formatting_support.o \
 			  pf_print_recursion.o \
