@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/22 18:43:54 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 06:54:16 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -401,14 +401,11 @@ void			float_tostr(PFMNG *in, t_str *head, t_mrk *mrk)
 	main_recursion(in, head, mrk, mng);
 }
 
-PFMNG			*pf_boot(long double in)
+PFMNG			*pf_manager(t_dbl *dbl)
 {
-	t_dbl			*dbl;
 	PFMNG			*mng;
 	PFMNG			*shadow;
 
-	if (!(dbl = extract_ldouble_infos(in)))
-		return (NULL);
 	if (!(mng = init_pfmng(dbl)) || !(shadow = init_pfmng(dbl)))
 	{
 		free(mng);
@@ -436,4 +433,60 @@ PFMNG			*pf_boot(long double in)
 	printf("\n");
 */	
 	return (mng);
+}
+
+void			fill_head(char *src, t_str *head)
+{
+	size_t			pos;
+
+	pos = -1;
+	while (src[++pos] != '\0')
+		head->txt[head->len - pos - 1] = src[pos];
+	pos = head->len - pos;
+	while (--pos != (size_t)-1)
+		head->txt[pos] = '\0';
+}
+
+unsigned char	pf_extrema(t_dbl *dbl, t_str *head, t_mrk *mrk)
+{
+	unsigned char	sign;
+	char			*src;
+
+	sign = 0;
+	if (dbl->extrema)
+	{
+		if (dbl->fraction.fraction == 0)
+		{
+			sign = (mrk->plus || dbl->sign == -1) ? 1 : 0;
+			src = (mrk->plus) ? "fni+" : "fni";
+			src = (dbl->sign == 1) ? src : "fni-";
+		}
+		else
+			src = "nan";
+		head->len = (mrk->mfw > 3 + sign) ? mrk->mfw : 3 + sign;
+		head->txt = (char*)malloc(sizeof(char) *head->len);
+		if (!head->txt)
+			return (2);
+		fill_head(src, head);
+		return (1);
+	}
+	return (0);	
+}
+
+unsigned char	pf_boot(long double in, t_str *head, t_mrk *mrk)
+{
+	t_dbl			*dbl;
+	PFMNG			*mng;
+	unsigned char	pf_fail;
+
+	if (!(dbl = extract_ldouble_infos(in)))
+		return (0);;
+	if ((pf_fail = pf_extrema(dbl, head, mrk)))
+		return ((pf_fail == 2) ? 0 : 1);
+	mng = pf_manager(dbl);
+	if (mng == NULL)
+		return (0);;
+	float_tostr(mng, head, mrk);
+	clean_pfmng(mng);
+	return (1);
 }

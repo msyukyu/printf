@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:13:25 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/21 17:13:29 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 05:44:14 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct			s_dbl
 	char				sign;
 	unsigned char		normalized;
 	int					exponent;
+	unsigned char		extrema;
 	t_frac				fraction;
 }						t_dbl;
 
@@ -81,7 +82,7 @@ PFMNG					*init_pfmng(t_dbl *dbl);
 PF						*init_pf(ULL value, PF *left, PF *right);
 void					clean_pfmng(PFMNG *mng);
 
-PFMNG					*pf_boot(long double in);
+PFMNG					*pf_manager(t_dbl *dbl);
 unsigned char			decode_fraction(t_dbl *dbl, PFMNG *mng, PFMNG *shadow);
 
 #endif

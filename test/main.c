@@ -118,10 +118,19 @@ int				main(void)
 	ft_printf("%10.f\n", 2.0);
 	printf("%10.f\n", 2.0);
 	*/
-
+	/*
 	ft_printf("42%+#9.26f42\n", (double)0.000000);
 	printf("42%+#9.26f42\n", (double)0.000000);
-
+	*/
+	/*
+	long double i = ((long double)5.0 / (long double)0.0);
+	ft_printf("%+20.31Lf\n", i);
+	printf("%+20.31Lf\n", i);
+	*/
+	ft_printf("%0# 2.19lf\n", 13.1053603564395455550);
+	printf("%0# 2.19lf\n", 13.1053603564395455550);
+	ft_printf("%0#.48f\n", 4623571739123646464.000000);
+	printf("%0#.48f\n", 4623571739123646464.000000);
 }
 //*/
 /*
