@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 16:16:27 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 10:24:26 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 10:27:35 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ size_t		handle_f(va_list ap, t_str *head, t_mrk *mrk)
 		if (!pf_boot_lf(va_arg(ap, long double), head, mrk))
 			return (0);
 	}
-	else
-		if (!pf_boot_f(va_arg(ap, double), head, mrk))
-			return (0);
+	else if (!pf_boot_f(va_arg(ap, double), head, mrk))
+		return (0);
 	if (!head->txt)
 		return (0);
 	head->is_raw = 0;

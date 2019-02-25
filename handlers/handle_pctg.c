@@ -6,14 +6,12 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 17:08:46 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/01/11 20:42:20 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 10:28:38 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-//type %
-//all valid
 size_t			handle_pctg(t_str *head, t_mrk *mrk)
 {
 	uchar_tostr('%', head, mrk);

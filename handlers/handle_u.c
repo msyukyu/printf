@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 17:01:34 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/23 17:36:23 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 10:32:27 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ void			handle_u_t(va_list ap, t_str *head, t_mrk *mrk)
 	else
 		uint_tostr((unsigned int)va_arg(ap, uintmax_t), head, mrk, 0);
 }
-	//type u
-	//invalid flags : + #
-	//invalid modifier : L
+
 size_t			handle_u(va_list ap, t_str *head, t_mrk *mrk)
 {
 	mrk->base = 10;

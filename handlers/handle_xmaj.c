@@ -6,15 +6,12 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 17:05:28 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/23 19:51:45 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 10:30:56 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-//type X
-//invalid flags : + 
-//invalid modifier : L
 size_t			handle_x_maj(va_list ap, t_str *head, t_mrk *mrk)
 {
 	mrk->base = 16;
@@ -29,13 +26,7 @@ size_t			handle_x_maj(va_list ap, t_str *head, t_mrk *mrk)
 	if (mrk->len_prefix && (!mrk->zero || mrk->arg_precision))
 		add_prefix("X0", head);
 	if (mrk->minus)
-	{
 		left_justify(' ', head, mrk);
-		/*
-		if (mrk->len_prefix)
-			appleft_prefix("0X", head, mrk->len_prefix, ' ');
-			*/
-	}
 	else
 	{
 		if (mrk->zero && !mrk->arg_precision)

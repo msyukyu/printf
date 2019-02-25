@@ -6,7 +6,7 @@
 #    By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/04 12:40:14 by dabeloos          #+#    #+#              #
-#    Updated: 2019/02/22 15:06:11 by dabeloos         ###   ########.fr        #
+#    Updated: 2019/02/25 11:26:57 by dabeloos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ CFLAGS		= -Wall -Wextra -Werror
 CHEAD		= ./includes
 
 MAIN_F		= apply_ornament.o \
+			  justify.o \
 			  bases.o \
 			  decode_format.o \
 			  init_clean.o \
@@ -44,11 +45,18 @@ FLOATS_F	= float_bits_extraction.o \
 
 CONVERS_F	= char_conversion.o \
 			  float_bits_conversion.o \
+			  float_conversion.o \
 			  signed_conversion.o \
 			  str_conversion.o \
 			  unsigned_conversion.o
 
 POLYADIC_F	= pf_boot.o \
+			  pf_init_clean.o \
+			  pf_extrema.o \
+			  pf_decimal_formatting.o \
+			  pf_manager.o \
+			  pf_decimal_formatting_support.o \
+			  pf_print_recursion.o \
 			  pf_init_clean.o
 
 O_F			= $(addprefix ./main/, $(MAIN_F)) \

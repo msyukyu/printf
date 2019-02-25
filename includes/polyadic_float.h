@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:13:25 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 05:44:14 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 11:12:13 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,12 @@ typedef struct			s_pf_print_manager
 unsigned char			*store_ldouble_bits(long double in);
 unsigned char			*store_double_bits(double in);
 
+PF						*add_right(ULL value, PFMNG *mng);
+PF						*add_left(ULL value, PFMNG *mng);
+unsigned char			add_inc(PF *pf, PFMNG *mng);
+unsigned char			shift_right(PFMNG *mng);
+unsigned char			shift_left(PFMNG *mng);
+
 char					extract_float_sign(unsigned char *bits, size_t size);
 int						extract_float_exponent(size_t len, size_t offset,
 							unsigned char *bits, size_t size);
@@ -81,6 +87,14 @@ t_dbl					*extract_double_infos(double in);
 PFMNG					*init_pfmng(t_dbl *dbl);
 PF						*init_pf(ULL value, PF *left, PF *right);
 void					clean_pfmng(PFMNG *mng);
+
+void					ignore_zeros(PFPMNG *mng);
+unsigned char			d_rank_right(PF **cur, unsigned char d_rank,
+							unsigned char rank_size);
+ULL						generate_base(unsigned char d_rank);
+unsigned char			extract_digit(ULL value, unsigned char d_rank);
+unsigned char			find_nonzero_digit(PF *cur, unsigned char d_rank,
+							unsigned char rank_size);
 
 PFMNG					*pf_manager(t_dbl *dbl);
 unsigned char			decode_fraction(t_dbl *dbl, PFMNG *mng, PFMNG *shadow);

@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 16:58:26 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/21 17:52:57 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 10:29:40 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ void			handle_d_t(va_list ap, t_str *head, t_mrk *mrk)
 		int_tostr((int)va_arg(ap, intmax_t), head, mrk, 0);
 }
 
-//type d
-//invalid flags : #
-//invalid modifier : L
 size_t			handle_d(va_list ap, t_str *head, t_mrk *mrk)
 {
 	mrk->base = 10;

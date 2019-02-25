@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:17:23 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 07:12:49 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 11:26:01 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,6 @@ void					int_tostr(intmax_t in, t_str *head, t_mrk *mrk,
 							size_t index);
 void					uchar_tostr(unsigned char in, t_str *head, t_mrk *mrk);
 void					ustr_tostr(char *in, t_str *head, t_mrk *mrk);
-//void					ldouble_tostr(long double in, t_str *head, t_mrk *mrk);
-//void					double_tostr(double in, t_str *head, t_mrk *mrk);
 void					float_tostr(PFMNG *in, t_str *head, t_mrk *mrk);
 
 void					double_bits_tostr(double in, t_str *head);
@@ -110,7 +108,14 @@ char					symb_uc(size_t index);
 
 char					*str_lst_join(t_str *slst, size_t len);
 
+void					main_recursion(PFMNG *in, t_str *head, t_mrk *mrk,
+							PFPMNG mng);
+
+unsigned char			pf_extrema(t_dbl *dbl, t_str *head, t_mrk *mrk);
+
 unsigned char			pf_boot_lf(long double in, t_str *head, t_mrk *mrk);
 unsigned char			pf_boot_f(double in, t_str *head, t_mrk *mrk);
+
+unsigned char			zeros_or_round(PFMNG *in, t_mrk *mrk, PFPMNG *mng);
 
 #endif
