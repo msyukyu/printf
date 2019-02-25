@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 06:54:16 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 08:32:44 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,10 +304,9 @@ unsigned char	find_nonzero_digit(PF *cur, unsigned char d_rank,
 	unsigned char	prev_prev;
 
 	s_rank = d_rank_right(&cur, d_rank, rank_size);
-	prev_prev = extract_digit(cur->value, s_rank);
 	if (cur == NULL)
 		return (0);
-	else if (prev_prev == 0)
+	else if ((prev_prev = extract_digit(cur->value, s_rank) == 0))
 		return (find_nonzero_digit(cur, s_rank, rank_size));
 	else
 		return (prev_prev);
@@ -473,14 +472,11 @@ unsigned char	pf_extrema(t_dbl *dbl, t_str *head, t_mrk *mrk)
 	return (0);	
 }
 
-unsigned char	pf_boot(long double in, t_str *head, t_mrk *mrk)
+unsigned char	pf_boot(t_dbl *dbl, t_str *head, t_mrk *mrk)
 {
-	t_dbl			*dbl;
 	PFMNG			*mng;
 	unsigned char	pf_fail;
 
-	if (!(dbl = extract_ldouble_infos(in)))
-		return (0);;
 	if ((pf_fail = pf_extrema(dbl, head, mrk)))
 		return ((pf_fail == 2) ? 0 : 1);
 	mng = pf_manager(dbl);
@@ -489,4 +485,22 @@ unsigned char	pf_boot(long double in, t_str *head, t_mrk *mrk)
 	float_tostr(mng, head, mrk);
 	clean_pfmng(mng);
 	return (1);
+}
+
+unsigned char	pf_boot_lf(long double in, t_str *head, t_mrk *mrk)
+{
+	t_dbl			*dbl;
+
+	if (!(dbl = extract_ldouble_infos(in)))
+		return (0);
+	return pf_boot(dbl, head, mrk);
+}
+
+unsigned char	pf_boot_f(double in, t_str *head, t_mrk *mrk)
+{
+	t_dbl			*dbl;
+
+	if (!(dbl = extract_double_infos(in)))
+		return (0);
+	return pf_boot(dbl, head, mrk);
 }

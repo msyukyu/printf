@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:17:23 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 06:13:47 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 07:12:49 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ char					symb_uc(size_t index);
 
 char					*str_lst_join(t_str *slst, size_t len);
 
-unsigned char			pf_boot(long double in, t_str *head, t_mrk *mrk);
+unsigned char			pf_boot_lf(long double in, t_str *head, t_mrk *mrk);
+unsigned char			pf_boot_f(double in, t_str *head, t_mrk *mrk);
 
 #endif
