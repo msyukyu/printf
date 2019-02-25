@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 09:34:49 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 10:02:10 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,13 +312,21 @@ unsigned char	find_nonzero_digit(PF *cur, unsigned char d_rank,
 		return (prev_prev);
 }
 
-void			round_up(PFMNG *in, PFPMNG *mng, unsigned char d_rank)
+unsigned char	round_up(PFMNG *in, PFPMNG *mng, unsigned char d_rank)
 {
+	PF			*cur;
 	mng->cur->inc = generate_base(d_rank);
-	add_inc(mng->cur, in);
+	cur = mng->cur;
+	while (cur)
+	{
+		if (!add_inc(cur, in))
+			return (0);
+		cur = cur->left;
+	}
+	return (1);
 }
 
-void			round_pfloat(PFMNG *in, PFPMNG *mng, int keep)
+unsigned char	round_pfloat(PFMNG *in, PFPMNG *mng, int keep)
 {
 	unsigned char	last_digit;
 	unsigned char	prev_digit;
@@ -339,10 +347,11 @@ void			round_pfloat(PFMNG *in, PFPMNG *mng, int keep)
 	prev_digit = extract_digit(cur->value, d_rank);
 	if (prev_digit > 5 || (prev_digit == 5 && (last_digit % 2 != 0 ||
 		find_nonzero_digit(cur, d_rank, in->i_s->size) != 0)))
-		round_up(in, mng, in->i_s->size - keep + 1);
+		return (round_up(in, mng, in->i_s->size - keep + 1));
+	return (1);
 }
 
-void			zeros_or_round(PFMNG *in, t_mrk *mrk, PFPMNG *mng)
+unsigned char	zeros_or_round(PFMNG *in, t_mrk *mrk, PFPMNG *mng)
 {
 	int				keep;
 	int				rejected;
@@ -368,7 +377,8 @@ void			zeros_or_round(PFMNG *in, t_mrk *mrk, PFPMNG *mng)
 	else if (keep >= 0)
 		mng->cur->size += keep;
 	else
-		round_pfloat(in, mng, keep);
+		return (round_pfloat(in, mng, keep));
+	return (1);
 }
 
 void			float_tostr(PFMNG *in, t_str *head, t_mrk *mrk)
@@ -384,7 +394,8 @@ void			float_tostr(PFMNG *in, t_str *head, t_mrk *mrk)
 	if (mng.cur == in->i_s)
 		mng.dot_index = (mrk->hashtag) ? 1 : 2;
 	if (!mng.dot_index)
-		zeros_or_round(in, mrk, &mng);
+		if (!zeros_or_round(in, mrk, &mng))
+			return ;
 	if (mng.cur == in->i_s)
 		mng.dot_index = (mrk->hashtag) ? 1 : 2;
 	if (mng.dot_index)
