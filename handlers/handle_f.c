@@ -6,29 +6,30 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 16:16:27 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 07:54:37 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 10:24:26 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-	//type f
-	//invalid modifier : ll h hh
 size_t		handle_f(va_list ap, t_str *head, t_mrk *mrk)
 {
 	mrk->base = 10;
-	if (mrk->len_modif && *(mrk->len_modif) == 'L')
+	if (mrk->len_modif && *(mrk->len_modif) == 'h')
+	{
+		if (mrk->len_len_modif == 2)
+			double_bits_tostr(va_arg(ap, double), head);
+		else
+			ldouble_bits_tostr(va_arg(ap, long double), head);
+	}
+	else if (mrk->len_modif && *(mrk->len_modif) == 'L')
 	{
 		if (!pf_boot_lf(va_arg(ap, long double), head, mrk))
 			return (0);
-		ldouble_bits_tostr(va_arg(ap, long double), head);
 	}
 	else
-	{
 		if (!pf_boot_f(va_arg(ap, double), head, mrk))
 			return (0);
-		//double_bits_tostr(va_arg(ap, double), head);
-	}
 	if (!head->txt)
 		return (0);
 	head->is_raw = 0;

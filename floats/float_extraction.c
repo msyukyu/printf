@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 17:54:42 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 07:37:19 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 10:15:40 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_dbl			*extract_double_infos(double in)
 	int				constant;
 
 	bits = store_double_bits(in);
-	if(!bits)
+	if (!bits)
 		return (NULL);
 	dbl = (t_dbl*)malloc(sizeof(t_dbl));
 	if (!dbl)

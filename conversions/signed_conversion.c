@@ -6,19 +6,19 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:52:22 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/22 15:27:50 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 10:18:41 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static void			ornate_signed(t_str *head, t_mrk *mrk, size_t i, char sign)
+static void		ornate_signed(t_str *head, t_mrk *mrk, size_t i, char sign)
 {
 	size_t		end;
 
 	while (++i < mrk->precision ||
 			((!mrk->arg_precision || mrk->mfw <= mrk->precision) &&
-			 !mrk->minus && mrk->zero && i < head->len))
+			!mrk->minus && mrk->zero && i < head->len))
 		head->txt[head->len - 1 - i] = '0';
 	end = (i == head->len) ? 1 : 0;
 	if (sign == -1)
@@ -31,7 +31,7 @@ static void			ornate_signed(t_str *head, t_mrk *mrk, size_t i, char sign)
 		head->txt[head->len - 1 - i++] = 0;
 }
 
-void			re_int_tostr(intmax_t in, t_str *head, t_mrk *mrk, size_t index)
+static void		re_int_tostr(intmax_t in, t_str *head, t_mrk *mrk, size_t index)
 {
 	char			sign;
 	size_t			i;
@@ -62,7 +62,7 @@ void			int_tostr(intmax_t in, t_str *head, t_mrk *mrk, size_t index)
 
 	if (!(in == 0 && index == 0 &&
 				mrk->arg_precision && mrk->precision == 0))
-		return re_int_tostr(in, head, mrk, index);
+		return (re_int_tostr(in, head, mrk, index));
 	if (mrk->mfw == 0)
 		return ;
 	i = (mrk->mfw > mrk->precision) ? mrk->mfw : mrk->precision;

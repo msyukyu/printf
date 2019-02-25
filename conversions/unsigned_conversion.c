@@ -6,13 +6,27 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:19:17 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 03:44:05 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 10:16:38 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void			re_uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk,
+static size_t	addon_prefix(uintmax_t in, t_mrk *mrk, size_t index)
+{
+	if (mrk->arg_precision && mrk->hashtag &&
+		!(index == 0 && in == 0) && (mrk->type == 'x' ||
+			mrk->type == 'X'))
+	{
+		if (mrk->precision >= mrk->mfw)
+			return (2);
+		else if (mrk->mfw == mrk->precision + 1)
+			return (1);
+	}
+	return (0);
+}
+
+static void		re_uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk,
 			size_t index)
 {
 	size_t		i;
@@ -22,15 +36,7 @@ void			re_uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk,
 		if (in == 0 && index == 0 && mrk->type != 'p')
 			mrk->len_prefix = 0;
 		i = (mrk->mfw > mrk->precision) ? mrk->mfw : mrk->precision;
-		if (mrk->arg_precision && mrk->hashtag &&
-				!(index == 0 && in == 0) && (mrk->type == 'x' ||
-					mrk->type == 'X'))
-		{
-			if (mrk->precision >= mrk->mfw)
-				i += 2;
-			else if (mrk->mfw == mrk->precision + 1)
-				i += 1;
-		}
+		i += addon_prefix(in, mrk, index);
 		head->len = (i > index + 1 + mrk->len_prefix) ? i : index + 1 +
 			mrk->len_prefix;
 		head->txt = (char*)malloc(sizeof(char) * head->len);
@@ -54,7 +60,7 @@ void			uint_tostr(uintmax_t in, t_str *head, t_mrk *mrk, size_t index)
 
 	if (!(in == 0 && index == 0 &&
 				mrk->arg_precision && mrk->precision == 0))
-		return re_uint_tostr(in, head, mrk, index);
+		return (re_uint_tostr(in, head, mrk, index));
 	if (mrk->mfw == 0 && !(mrk->type == 'o' && mrk->hashtag))
 		return ;
 	i = (mrk->mfw > mrk->precision) ? mrk->mfw : mrk->precision;
