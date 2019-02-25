@@ -1,3 +1,0 @@
-gcc -g */*.c -Iincludes -o a.exe
-C:\\Users\\Damien\\Desktop\\printf\\a.exe
-rm a.exe
