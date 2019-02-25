@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 11:17:54 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 11:20:44 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 11:38:08 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ ULL				find_most_significant_bit(ULL in)
 
 unsigned char	add_shadow(PFMNG *mng, PFMNG *shadow)
 {
-	PF				*shadow_cur;
-	PF				*cur;
-	int				offset;
+	t_polyadic_float	*shadow_cur;
+	t_polyadic_float	*cur;
+	int					offset;
 
 	cur = mng->d_e;
 	shadow_cur = shadow->d_e;
@@ -76,7 +76,8 @@ PFMNG			*pf_manager(t_dbl *dbl)
 	PFMNG			*mng;
 	PFMNG			*shadow;
 
-	if (!(mng = init_pfmng(dbl)) || !(shadow = init_pfmng(dbl)))
+	mng = init_pfmng(dbl);
+	if (!mng || !(shadow = init_pfmng(dbl)))
 	{
 		free(mng);
 		free(dbl);

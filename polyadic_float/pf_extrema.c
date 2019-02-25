@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 11:24:20 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 11:24:47 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 11:31:21 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ unsigned char	pf_extrema(t_dbl *dbl, t_str *head, t_mrk *mrk)
 		else
 			src = "nan";
 		head->len = (mrk->mfw > 3 + sign) ? mrk->mfw : 3 + sign;
-		head->txt = (char*)malloc(sizeof(char) *head->len);
+		head->txt = (char*)malloc(sizeof(char) * head->len);
 		if (!head->txt)
 			return (2);
 		fill_head(src, head);
 		return (1);
 	}
-	return (0);	
+	return (0);
 }

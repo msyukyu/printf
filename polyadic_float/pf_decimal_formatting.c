@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 11:03:50 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 11:13:06 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 11:35:58 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 unsigned char	round_up(PFMNG *in, PFPMNG *mng, unsigned char d_rank)
 {
-	PF			*cur;
+	t_polyadic_float	*cur;
+
 	mng->cur->inc = generate_base(d_rank);
 	cur = mng->cur;
 	while (cur)
@@ -28,10 +29,10 @@ unsigned char	round_up(PFMNG *in, PFPMNG *mng, unsigned char d_rank)
 
 unsigned char	round_pfloat(PFMNG *in, PFPMNG *mng, int keep)
 {
-	unsigned char	last_digit;
-	unsigned char	prev_digit;
-	unsigned char	d_rank;
-	PF				*cur;
+	unsigned char		last_digit;
+	unsigned char		prev_digit;
+	unsigned char		d_rank;
+	t_polyadic_float	*cur;
 
 	while (keep <= 0)
 	{
@@ -53,18 +54,14 @@ unsigned char	round_pfloat(PFMNG *in, PFPMNG *mng, int keep)
 
 unsigned char	zeros_or_round(PFMNG *in, t_mrk *mrk, PFPMNG *mng)
 {
-	int				keep;
-	int				rejected;
-	PF				*cur;
+	int					keep;
+	int					rejected;
+	t_polyadic_float	*cur;
 
 	ignore_zeros(mng);
 	rejected = mng->cur->size;
-	cur = mng->cur->left;
-	while (cur != in->i_s)
-	{
+	while ((cur = cur->left) != in->i_s)
 		rejected += in->i_s->size;
-		cur = cur->left;
-	}
 	mrk->precision = (!mrk->arg_precision) ? 6 : mrk->precision;
 	keep = (int)(mrk->precision) - rejected;
 	rejected = in->i_s->size - mng->cur->size;
