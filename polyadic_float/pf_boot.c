@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:36:10 by dabeloos          #+#    #+#             */
-/*   Updated: 2019/02/25 08:48:35 by dabeloos         ###   ########.fr       */
+/*   Updated: 2019/02/25 09:34:49 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,7 +306,7 @@ unsigned char	find_nonzero_digit(PF *cur, unsigned char d_rank,
 	s_rank = d_rank_right(&cur, d_rank, rank_size);
 	if (cur == NULL)
 		return (0);
-	else if ((prev_prev = extract_digit(cur->value, s_rank) == 0))
+	else if ((prev_prev = extract_digit(cur->value, s_rank)) == 0)
 		return (find_nonzero_digit(cur, s_rank, rank_size));
 	else
 		return (prev_prev);
