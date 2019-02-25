@@ -101,7 +101,10 @@ int				main(void)
 	ft_printf("42%-#48llx42\n", 1161769932);
 	printf("42%-#48llx42\n", 1161769932);
 	*/
-	ft_printf("(null)", 453384684);
+	/*
+	ft_printf("%#7.6hx\n", (unsigned short)250);
+	printf("%#7.6hx\n", (unsigned short)250);
+	*/
 	/*
 	printf("%#+-10.25f\n", 684684656898498451651053.54668498461354684686846884);
 
@@ -116,7 +119,8 @@ int				main(void)
 	printf("%10.f\n", 2.0);
 	*/
 
-
+	ft_printf("42%+#9.26f42\n", (double)0.000000);
+	printf("42%+#9.26f42\n", (double)0.000000);
 
 }
 //*/
